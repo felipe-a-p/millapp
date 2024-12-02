@@ -1,0 +1,54 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"MnfKgbnUl4\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Artigos</b></span>\",\"col\":12}},{\"id\":\"lMcCVwfZ35\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Grupos De Artigos\",\"col\":3}},{\"id\":\"IAWmiNaTtU\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Artigos\",\"col\":3}},{\"id\":\"KVmw04yq-Q\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Tabelas de Precos\",\"col\":3}}]",
+ "creation": "2024-07-30 14:11:31.115047",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "tag",
+ "idx": 0,
+ "indicator_color": "",
+ "is_hidden": 0,
+ "label": "Pe\u00e7as",
+ "links": [],
+ "modified": "2024-10-16 08:14:27.073751",
+ "modified_by": "Administrator",
+ "module": "Materiais",
+ "name": "Pe\u00e7as",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 9.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "Tree",
+   "label": "Grupos De Artigos",
+   "link_to": "Grupos de Artigos",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Tabelas de Precos",
+   "link_to": "Tabelas de Precos",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Artigos",
+   "link_to": "Artigos",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "Pe\u00e7as"
+}

@@ -1,0 +1,110 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{grupo}",
+ "creation": "2024-09-02 10:01:49.618832",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "grupo",
+  "tabela_subgrupos",
+  "sistema_tab",
+  "old_parent",
+  "lft",
+  "rgt",
+  "parent_grupos_de_artigos",
+  "is_group"
+ ],
+ "fields": [
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "grupo",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Grupo",
+   "reqd": 1
+  },
+  {
+   "fieldname": "tabela_subgrupos",
+   "fieldtype": "Table",
+   "label": "Sub-Grupos",
+   "options": "Subgrupos de Artigos"
+  },
+  {
+   "fieldname": "lft",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Left",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "rgt",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Right",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_group",
+   "fieldtype": "Check",
+   "label": "Is Group"
+  },
+  {
+   "fieldname": "old_parent",
+   "fieldtype": "Link",
+   "label": "Old Parent",
+   "options": "Grupos de Artigos"
+  },
+  {
+   "fieldname": "parent_grupos_de_artigos",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Parent Grupos de Artigos",
+   "options": "Grupos de Artigos"
+  },
+  {
+   "fieldname": "sistema_tab",
+   "fieldtype": "Tab Break",
+   "label": "Sistema"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_tree": 1,
+ "links": [],
+ "modified": "2024-11-26 14:58:14.172657",
+ "modified_by": "Administrator",
+ "module": "Materiais",
+ "name": "Grupos de Artigos",
+ "naming_rule": "Expression",
+ "nsm_parent_field": "parent_grupos_de_artigos",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Desk User",
+   "share": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,198 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{referencia} - {artigo}",
+ "creation": "2024-08-07 07:29:14.249492",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_tfip",
+  "referencia",
+  "artigo",
+  "producao_propria",
+  "column_break_fhix",
+  "status",
+  "grupo",
+  "subgrupo",
+  "custo",
+  "tags",
+  "section_break_uxsd",
+  "lista_precos",
+  "estocagem_tab",
+  "modelos_tab",
+  "modelos_de_artigos",
+  "fiscal_tab",
+  "mat\u00e9ria_prima_tab"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_tfip",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "referencia",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Referencia",
+   "reqd": 1,
+   "set_only_once": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "artigo",
+   "fieldtype": "Data",
+   "label": "Artigo"
+  },
+  {
+   "fieldname": "grupo",
+   "fieldtype": "Link",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Grupo",
+   "options": "Grupos de Artigos",
+   "search_index": 1
+  },
+  {
+   "fieldname": "subgrupo",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Sub Grupo",
+   "link_filters": "[]",
+   "options": "Subgrupos de Artigos"
+  },
+  {
+   "fieldname": "custo",
+   "fieldtype": "Currency",
+   "label": "Custo",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "modelos_tab",
+   "fieldtype": "Tab Break",
+   "label": "Modelos"
+  },
+  {
+   "fieldname": "fiscal_tab",
+   "fieldtype": "Tab Break",
+   "label": "Fiscal"
+  },
+  {
+   "fieldname": "mat\u00e9ria_prima_tab",
+   "fieldtype": "Tab Break",
+   "label": "Mat\u00e9ria Prima"
+  },
+  {
+   "fieldname": "column_break_fhix",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Ativo",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Ativo\nInativo"
+  },
+  {
+   "fieldname": "estocagem_tab",
+   "fieldtype": "Tab Break",
+   "label": "Estocagem"
+  },
+  {
+   "fieldname": "section_break_uxsd",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "lista_precos",
+   "fieldtype": "Table",
+   "label": "Pre\u00e7os",
+   "options": "Preco do Artigo",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "modelos_de_artigos",
+   "fieldtype": "Table",
+   "label": "Tabela de Modelos",
+   "options": "Modelos de Artigos"
+  },
+  {
+   "default": "0",
+   "fieldname": "producao_propria",
+   "fieldtype": "Check",
+   "label": "Produ\u00e7\u00e3o Propria"
+  },
+  {
+   "fieldname": "tags",
+   "fieldtype": "Table MultiSelect",
+   "in_standard_filter": 1,
+   "label": "Tags",
+   "options": "Ligacao de Tags"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-11-26 23:24:24.767879",
+ "modified_by": "Administrator",
+ "module": "Materiais",
+ "name": "Artigos",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "select": 1,
+   "share": 1,
+   "write": 1
+  },
+  {
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Administra\u00e7\u00e3o",
+   "select": 1,
+   "share": 1,
+   "write": 1
+  },
+  {
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Administra\u00e7\u00e3o",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

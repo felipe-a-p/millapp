@@ -1,0 +1,242 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{nome} {sobrenome} - {cidade}",
+ "creation": "2024-07-30 11:38:51.829790",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "dados_cadastrais_section",
+  "status",
+  "pessoa",
+  "nome",
+  "sobrenome",
+  "cpf",
+  "rg",
+  "cnpj",
+  "nascimento",
+  "cod_identificador",
+  "column_break_lyi4",
+  "telefone",
+  "telefone_secundario",
+  "cep",
+  "rua",
+  "casa",
+  "complemento",
+  "bairro",
+  "cidade",
+  "estado",
+  "column_break_nwpx",
+  "observacoes",
+  "latitude",
+  "longitude",
+  "lat_long_por_api"
+ ],
+ "fields": [
+  {
+   "fieldname": "dados_cadastrais_section",
+   "fieldtype": "Section Break",
+   "label": "Dados Cadastrais"
+  },
+  {
+   "default": "Fisica",
+   "fieldname": "pessoa",
+   "fieldtype": "Select",
+   "label": "Pessoa",
+   "options": "Fisica\nJuridica\nMEI"
+  },
+  {
+   "fieldname": "sobrenome",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Sobrenome",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cpf",
+   "fieldtype": "Data",
+   "label": "CPF",
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "rg",
+   "fieldtype": "Data",
+   "label": "RG"
+  },
+  {
+   "fieldname": "cnpj",
+   "fieldtype": "Data",
+   "label": "CNPJ"
+  },
+  {
+   "fieldname": "nascimento",
+   "fieldtype": "Date",
+   "label": "Nascimento"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Ativo\nArquivado"
+  },
+  {
+   "fieldname": "column_break_lyi4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "telefone",
+   "fieldtype": "Data",
+   "label": "Telefone Principal"
+  },
+  {
+   "depends_on": "telefone",
+   "fieldname": "telefone_secundario",
+   "fieldtype": "Data",
+   "label": "Telefone Secundario"
+  },
+  {
+   "fieldname": "cep",
+   "fieldtype": "Data",
+   "label": "CEP"
+  },
+  {
+   "fieldname": "rua",
+   "fieldtype": "Data",
+   "label": "Rua"
+  },
+  {
+   "fieldname": "casa",
+   "fieldtype": "Data",
+   "label": "Casa"
+  },
+  {
+   "fieldname": "bairro",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Bairro"
+  },
+  {
+   "fieldname": "cidade",
+   "fieldtype": "Data",
+   "in_filter": 1,
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Cidade",
+   "reqd": 1
+  },
+  {
+   "fieldname": "estado",
+   "fieldtype": "Data",
+   "label": "Estado"
+  },
+  {
+   "fieldname": "latitude",
+   "fieldtype": "Data",
+   "label": "Latitude"
+  },
+  {
+   "fieldname": "longitude",
+   "fieldtype": "Data",
+   "label": "Longitude"
+  },
+  {
+   "fieldname": "complemento",
+   "fieldtype": "Data",
+   "label": "Complemento"
+  },
+  {
+   "fieldname": "nome",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Nome",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_nwpx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "observacoes",
+   "fieldtype": "Data",
+   "label": "Observa\u00e7\u00f5es"
+  },
+  {
+   "default": "0",
+   "fieldname": "lat_long_por_api",
+   "fieldtype": "Check",
+   "label": "Lat / Long Automaticos",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cod_identificador",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "C\u00f3digo Identificador",
+   "set_only_once": 1,
+   "unique": 1
+  }
+ ],
+ "links": [
+  {
+   "link_doctype": "Atendimentos",
+   "link_fieldname": "cliente"
+  },
+  {
+   "link_doctype": "Pedidos",
+   "link_fieldname": "cliente"
+  },
+  {
+   "link_doctype": "Faturamentos",
+   "link_fieldname": "cliente"
+  }
+ ],
+ "modified": "2024-11-29 21:29:39.598053",
+ "modified_by": "Administrator",
+ "module": "App Milleniuns",
+ "name": "Contatos",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "role": "Desk User",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "if_owner": 1,
+   "permlevel": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Desk User",
+   "select": 1,
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

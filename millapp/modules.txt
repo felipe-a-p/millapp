@@ -1,0 +1,6 @@
+Nucleo
+Atendimento
+Financeiro
+Materiais
+Vendas
+Logistica

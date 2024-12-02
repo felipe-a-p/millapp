@@ -1,0 +1,104 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "hash",
+ "creation": "2024-08-07 10:47:20.127942",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "status",
+  "artigo",
+  "preco_etiqueta",
+  "quantidade_entregue",
+  "valor_total_entregue",
+  "quantidade_devolvida",
+  "quantidade_vendida",
+  "total_vendido",
+  "quantidade_devolvida_conferida"
+ ],
+ "fields": [
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "artigo",
+   "fieldtype": "Link",
+   "label": "Artigo",
+   "options": "Artigos",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "quantidade_entregue",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Entregue (Quantidade)",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "quantidade_devolvida",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Devolvida (Quantidade)",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "quantidade_vendida",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Vendida (Quantidade)",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "preco_etiqueta",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Pre\u00e7o de Etiqueta",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Aberto\nFechado",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_vendido",
+   "fieldtype": "Currency",
+   "label": "Valor Total Vendido",
+   "read_only": 1
+  },
+  {
+   "fieldname": "valor_total_entregue",
+   "fieldtype": "Currency",
+   "label": "Valor Total Entregue",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "quantidade_devolvida_conferida",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Devolvida (Quantidade) Conferida",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-10-14 17:29:12.718737",
+ "modified_by": "Administrator",
+ "module": "Vendas",
+ "name": "Artigos no Pedido",
+ "naming_rule": "Random",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

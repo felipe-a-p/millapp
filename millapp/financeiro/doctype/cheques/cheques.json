@@ -1,0 +1,104 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:Ch{cheque_num}-{valor}-{contato}",
+ "creation": "2024-11-19 16:16:05.933898",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "tipo_de_transacao",
+  "status_cheque",
+  "contato",
+  "valor",
+  "nome_emissor",
+  "banco_numeros",
+  "banco_nome",
+  "agencia",
+  "conta",
+  "cheque_num",
+  "data_depositar"
+ ],
+ "fields": [
+  {
+   "fieldname": "tipo_de_transacao",
+   "fieldtype": "Select",
+   "label": "Tipo Transi\u00e7\u00e3o",
+   "options": "Cedido\nRecebido",
+   "reqd": 1
+  },
+  {
+   "default": "Entregue",
+   "fieldname": "status_cheque",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Entregue\nDepositado\nCompensado\nDevolvido\nCongelado\nAdiantado"
+  },
+  {
+   "fieldname": "contato",
+   "fieldtype": "Link",
+   "label": "Contato",
+   "options": "Contatos",
+   "reqd": 1
+  },
+  {
+   "fieldname": "valor",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Valor",
+   "reqd": 1
+  },
+  {
+   "fieldname": "nome_emissor",
+   "fieldtype": "Data",
+   "label": "Nome Emissor"
+  },
+  {
+   "fieldname": "banco_numeros",
+   "fieldtype": "Int",
+   "label": "Banco (Numeros)"
+  },
+  {
+   "fieldname": "agencia",
+   "fieldtype": "Data",
+   "label": "Agencia"
+  },
+  {
+   "fieldname": "conta",
+   "fieldtype": "Data",
+   "label": "Conta"
+  },
+  {
+   "fieldname": "data_depositar",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Data depositar",
+   "reqd": 1
+  },
+  {
+   "fieldname": "banco_nome",
+   "fieldtype": "Data",
+   "label": "Banco"
+  },
+  {
+   "fieldname": "cheque_num",
+   "fieldtype": "Data",
+   "label": "Cheque num"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-11-21 10:36:57.991707",
+ "modified_by": "Administrator",
+ "module": "Financeiro",
+ "name": "Cheques",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

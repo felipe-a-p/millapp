@@ -1,0 +1,42 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-08-16 18:00:21.317372",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ligacao_tabela_de_preco",
+  "preco"
+ ],
+ "fields": [
+  {
+   "fieldname": "ligacao_tabela_de_preco",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Tabela de Pre\u00e7o",
+   "options": "Tabelas de Precos"
+  },
+  {
+   "fieldname": "preco",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Pre\u00e7o",
+   "precision": "2"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-08-17 16:58:24.566791",
+ "modified_by": "Administrator",
+ "module": "Materiais",
+ "name": "Preco do Artigo",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

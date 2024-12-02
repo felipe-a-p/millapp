@@ -1,0 +1,57 @@
+@media (max-width: 600px) {
+    .table-responsive {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+.btn-green {
+    background-color: green;
+    color: white;
+    border: none;
+}
+
+.btn-red {
+    background-color: red;
+    color: white;
+    border: none;
+}
+
+.custom-form .btn-custom-lg {
+    padding: 12px 20px;
+    /* Ajuste o tamanho dos botões */
+    font-size: 20px;
+    /* Ajuste o tamanho da fonte */
+    line-height: 1.5;
+    /* Ajuste a altura da linha */
+    border-radius: 8px;
+    /* Ajuste o arredondamento das bordas */
+}
+
+.custom-form .form-control {
+    height: 40px;
+    /* Ajuste a altura da caixa de texto */
+    text-align: center;
+    /* Centralize o texto na caixa de texto */
+    font-size: 18px;
+    /* Ajuste o tamanho da fonte */
+}
+
+.custom-form .input-group {
+    display: flex;
+    align-items: center;
+    /* Alinha verticalmente os itens no centro */
+    justify-content: center;
+    /* Centraliza os itens horizontalmente */
+}
+
+.custom-form .input-group .input-group-btn {
+    margin: 0 5px;
+    /* Ajuste a margem entre os botões e a caixa de texto */
+}
+
+.artigo-cell {
+    font-size: 12px;
+    /* Ajuste o tamanho da fonte conforme necessário */
+}

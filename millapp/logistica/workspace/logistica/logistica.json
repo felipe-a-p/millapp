@@ -1,0 +1,38 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"MRRmEJYkwb\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Logistica</span>\",\"col\":12}},{\"id\":\"NXHeabAyto\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Rotas\",\"col\":3}}]",
+ "creation": "2024-10-15 15:07:39.719858",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "map",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Logistica",
+ "links": [],
+ "modified": "2024-10-29 17:06:28.025361",
+ "modified_by": "Administrator",
+ "module": "Logistica",
+ "name": "Logistica",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 8.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Rotas",
+   "link_to": "Rotas",
+   "stats_filter": "[[\"Rotas\",\"rota_state\",\"!=\",\"Finalizada\",false]]",
+   "type": "DocType"
+  }
+ ],
+ "title": "Logistica"
+}

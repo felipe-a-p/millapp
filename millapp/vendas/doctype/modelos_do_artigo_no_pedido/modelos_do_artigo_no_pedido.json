@@ -1,0 +1,72 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-08-22 08:56:14.650215",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "modelo",
+  "artigo",
+  "quantidade_entregue",
+  "quantidade_devolvida",
+  "quantidade_vendida",
+  "quantidade_devolvida_conferida"
+ ],
+ "fields": [
+  {
+   "fieldname": "modelo",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Modelo",
+   "options": "Modelos de Artigos"
+  },
+  {
+   "default": "0",
+   "fieldname": "quantidade_entregue",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Entregue"
+  },
+  {
+   "default": "0",
+   "fieldname": "quantidade_devolvida",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Devolvido"
+  },
+  {
+   "default": "0",
+   "fieldname": "quantidade_vendida",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Vendido"
+  },
+  {
+   "fieldname": "artigo",
+   "fieldtype": "Link",
+   "label": "Artigo",
+   "options": "Artigos"
+  },
+  {
+   "default": "0",
+   "fieldname": "quantidade_devolvida_conferida",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Devolvido Conferido"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-10-14 17:29:32.534473",
+ "modified_by": "Administrator",
+ "module": "Vendas",
+ "name": "Modelos do Artigo no Pedido",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

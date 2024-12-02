@@ -1,0 +1,150 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{responsavel_de_rota}-{data}",
+ "creation": "2024-09-19 10:10:38.074438",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "data",
+  "rota_state",
+  "column_break_pvdk",
+  "responsavel_de_atendimento",
+  "responsavel_de_rota",
+  "section_break_rwak",
+  "html_filtro_de_atendimentos",
+  "html_mapa_interativo",
+  "abrir_no_waze",
+  "abrir_no_gmaps",
+  "column_break_sxpd",
+  "html_controle_de_formulario",
+  "html_lista_interativa",
+  "tab_break_gukk",
+  "lista_de_atendimentos",
+  "json_rota",
+  "check_swapper_edicao",
+  "dias_para_proximo_acerto"
+ ],
+ "fields": [
+  {
+   "fieldname": "data",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Data da Rota"
+  },
+  {
+   "fieldname": "column_break_pvdk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "responsavel_de_atendimento",
+   "fieldtype": "Data",
+   "label": "Responsavel de Atendimento"
+  },
+  {
+   "fieldname": "responsavel_de_rota",
+   "fieldtype": "Data",
+   "label": "Responsavel de Rota"
+  },
+  {
+   "fieldname": "lista_de_atendimentos",
+   "fieldtype": "Table",
+   "label": "Lista de Atendimentos",
+   "options": "Pontos de Rota"
+  },
+  {
+   "fieldname": "html_filtro_de_atendimentos",
+   "fieldtype": "HTML",
+   "label": "Filtro de Atendimentos"
+  },
+  {
+   "fieldname": "html_mapa_interativo",
+   "fieldtype": "HTML",
+   "label": "Mapa de Atendimentos"
+  },
+  {
+   "fieldname": "html_lista_interativa",
+   "fieldtype": "HTML",
+   "label": "Lista de Atendimentos Filtrada"
+  },
+  {
+   "fieldname": "tab_break_gukk",
+   "fieldtype": "Tab Break",
+   "label": "Informa\u00e7\u00f5es"
+  },
+  {
+   "fieldname": "rota_state",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "-\nPlanejando\nPlanejada\nEm Rota\nFinalizada"
+  },
+  {
+   "fieldname": "json_rota",
+   "fieldtype": "JSON",
+   "label": "Rota Json",
+   "read_only": 1
+  },
+  {
+   "fieldname": "abrir_no_waze",
+   "fieldtype": "Button",
+   "label": "Abrir no Waze"
+  },
+  {
+   "fieldname": "abrir_no_gmaps",
+   "fieldtype": "Button",
+   "label": "Abrir no GMaps"
+  },
+  {
+   "fieldname": "section_break_rwak",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_sxpd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "check_swapper_edicao",
+   "fieldtype": "Check",
+   "label": "Swapper",
+   "read_only": 1
+  },
+  {
+   "fieldname": "html_controle_de_formulario",
+   "fieldtype": "HTML",
+   "label": "Controle de Formulario"
+  },
+  {
+   "default": "60",
+   "fieldname": "dias_para_proximo_acerto",
+   "fieldtype": "Int",
+   "label": "Dias para proximo acerto",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-11-22 09:26:48.703698",
+ "modified_by": "Administrator",
+ "module": "Logistica",
+ "name": "Rotas",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

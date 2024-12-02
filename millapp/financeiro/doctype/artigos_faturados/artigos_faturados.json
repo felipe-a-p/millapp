@@ -1,0 +1,71 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-09-09 10:35:52.733380",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "artigo",
+  "modelo",
+  "pre\u00e7o_etiqueta",
+  "quantidade",
+  "valor_bruto",
+  "valor_liquido_com_desconto"
+ ],
+ "fields": [
+  {
+   "fieldname": "artigo",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Artigo",
+   "options": "Artigos"
+  },
+  {
+   "fieldname": "modelo",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Modelo",
+   "options": "Modelos de Artigos"
+  },
+  {
+   "fieldname": "pre\u00e7o_etiqueta",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Pre\u00e7o de Etiqueta",
+   "read_only": 1
+  },
+  {
+   "fieldname": "quantidade",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Quantidade"
+  },
+  {
+   "fieldname": "valor_bruto",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Valor Bruto",
+   "read_only": 1
+  },
+  {
+   "fieldname": "valor_liquido_com_desconto",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Valor Liquido (Com desconto)",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-09-12 10:35:30.565546",
+ "modified_by": "Administrator",
+ "module": "Financeiro",
+ "name": "Artigos Faturados",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

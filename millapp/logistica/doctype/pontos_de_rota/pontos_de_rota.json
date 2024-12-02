@@ -1,0 +1,62 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-09-21 16:13:36.099200",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "atendimento",
+  "status_ponto",
+  "hora_marcada",
+  "hora_conclusao",
+  "observacao"
+ ],
+ "fields": [
+  {
+   "fieldname": "atendimento",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Atendimento",
+   "options": "Atendimentos"
+  },
+  {
+   "default": "00",
+   "fieldname": "hora_marcada",
+   "fieldtype": "Time",
+   "in_list_view": 1,
+   "label": "Horario Marcado"
+  },
+  {
+   "default": "Planejado",
+   "fieldname": "status_ponto",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Planejado\nMarcado\nCompleto\nAtrasado\nCancelado"
+  },
+  {
+   "fieldname": "observacao",
+   "fieldtype": "Small Text",
+   "label": "Observa\u00e7\u00e3o"
+  },
+  {
+   "default": "00",
+   "fieldname": "hora_conclusao",
+   "fieldtype": "Time",
+   "label": "Hora Conclusao"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-10-01 11:36:48.992474",
+ "modified_by": "Administrator",
+ "module": "Logistica",
+ "name": "Pontos de Rota",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,74 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{parent} - {tamanho} - {modelo}",
+ "creation": "2024-08-22 11:23:45.214832",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "tamanho",
+  "modelo",
+  "codigo_de_barras_numeros",
+  "codigo_de_barras_visual",
+  "botao_gerar_codigo_de_barras",
+  "modelo_padrao"
+ ],
+ "fields": [
+  {
+   "default": "S/M",
+   "fieldname": "modelo",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Modelo",
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "tamanho",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Tamanho",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "botao_gerar_codigo_de_barras",
+   "fieldtype": "Button",
+   "label": "Gerar C\u00f3digo de Barras"
+  },
+  {
+   "default": "0",
+   "fieldname": "modelo_padrao",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Padr\u00e3o"
+  },
+  {
+   "fieldname": "codigo_de_barras_numeros",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "C\u00f3digo de Barras",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "codigo_de_barras_visual",
+   "fieldtype": "Barcode",
+   "label": "C\u00f3digo de Barras",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-08-28 17:54:32.354573",
+ "modified_by": "Administrator",
+ "module": "Materiais",
+ "name": "Modelos de Artigos",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

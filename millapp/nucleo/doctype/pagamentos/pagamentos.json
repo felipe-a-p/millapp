@@ -1,0 +1,44 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{metodo} - {data}",
+ "creation": "2024-09-06 11:33:27.909733",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "metodo",
+  "valor",
+  "data"
+ ],
+ "fields": [
+  {
+   "fieldname": "metodo",
+   "fieldtype": "Select",
+   "label": "Metodo"
+  },
+  {
+   "fieldname": "valor",
+   "fieldtype": "Currency",
+   "label": "Valor"
+  },
+  {
+   "fieldname": "data",
+   "fieldtype": "Date",
+   "label": "Data Pagamento"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-09-06 11:35:59.522428",
+ "modified_by": "Administrator",
+ "module": "App Milleniuns",
+ "name": "Pagamentos",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

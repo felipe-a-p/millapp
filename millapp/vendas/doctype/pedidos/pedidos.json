@@ -1,0 +1,525 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "hash",
+ "creation": "2024-08-06 11:30:54.353495",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "atendimento",
+  "cliente",
+  "nome_cliente",
+  "telefone_cliente",
+  "endere\u00e7o",
+  "column_break_xfph",
+  "pedido_state",
+  "tipo_pedido",
+  "data_entrega",
+  "data_acerto",
+  "botao_criar_pedido",
+  "pedido_numero",
+  "column_break_rrbg",
+  "data_criacao",
+  "data_entregue",
+  "data_fechamento",
+  "section_break_xwtr",
+  "total_entregue_qtd",
+  "total_entregue_vlr",
+  "column_break_csnm",
+  "total_vendido_qtd",
+  "total_vendido_vlr",
+  "column_break_sdpl",
+  "status_faturamento",
+  "faturamento",
+  "artigos_tab",
+  "section_break_cqhn",
+  "estado_acerto",
+  "column_break_mool",
+  "botao_iniciar_fechamento",
+  "section_break_yyji",
+  "modo_lancamento",
+  "column_break_gfuv",
+  "column_break_mapi",
+  "section_break_ozfe",
+  "column_break_wwns",
+  "column_break_gfpk",
+  "botao_editar_itens",
+  "column_break_mugp",
+  "botao_encerrar_separacao",
+  "botao_entregar_pedido",
+  "botao_encerrar_fechamento",
+  "section_break_lancamento",
+  "ref_ou_cb",
+  "artigo_a_editar",
+  "column_break_jsmn",
+  "html_lancador_quantidade",
+  "html_mostrador",
+  "section_break_lhzd",
+  "column_break_jaww",
+  "column_break_yfcu",
+  "botao_salvar_itens",
+  "section_break_moam",
+  "artigos_do_pedido",
+  "check_swapper_edicao",
+  "modelos_tab",
+  "tabela_de_modelos",
+  "configs_tab",
+  "tab",
+  "config_tabela_precos",
+  "pedido_complemento",
+  "faturamento_section",
+  "config_faturar_por",
+  "config_faturar_negativo"
+ ],
+ "fields": [
+  {
+   "fieldname": "atendimento",
+   "fieldtype": "Link",
+   "label": "Atendimento",
+   "options": "Atendimentos",
+   "read_only": 1,
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "data_criacao",
+   "fieldtype": "Datetime",
+   "label": "Data Cria\u00e7\u00e3o",
+   "read_only": 1
+  },
+  {
+   "fieldname": "data_acerto",
+   "fieldtype": "Datetime",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "label": "Data Acerto"
+  },
+  {
+   "fieldname": "data_fechamento",
+   "fieldtype": "Datetime",
+   "label": "Data Fechamento",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_xfph",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cliente",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Cliente",
+   "options": "Contatos",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "nome_cliente",
+   "fieldtype": "Read Only",
+   "label": "Nome"
+  },
+  {
+   "fieldname": "telefone_cliente",
+   "fieldtype": "Read Only",
+   "label": "Telefone"
+  },
+  {
+   "fieldname": "endere\u00e7o",
+   "fieldtype": "Read Only",
+   "label": "Endere\u00e7o"
+  },
+  {
+   "fieldname": "artigos_do_pedido",
+   "fieldtype": "Table",
+   "label": "Artigos do Pedido",
+   "options": "Artigos no Pedido",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_cqhn",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_gfpk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_mugp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "artigos_tab",
+   "fieldtype": "Tab Break",
+   "label": "Artigos"
+  },
+  {
+   "fieldname": "section_break_ozfe",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_moam",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_yyji",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_gfuv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_mapi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_jsmn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_xwtr",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_csnm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "botao_iniciar_fechamento",
+   "fieldtype": "Button",
+   "label": "Iniciar Fechamento"
+  },
+  {
+   "fieldname": "estado_acerto",
+   "fieldtype": "Select",
+   "label": "Estado:",
+   "options": "Aberto\nReaberto\nFechando\nFechado\nDevolvido\nConferido",
+   "read_only": 1
+  },
+  {
+   "default": "Pre-Criado",
+   "fieldname": "pedido_state",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Etapa",
+   "options": "Pre-Criado\nCriado\nSeparado\nEntregue\nFaturado\nPrototipo",
+   "read_only": 1
+  },
+  {
+   "fieldname": "botao_criar_pedido",
+   "fieldtype": "Button",
+   "label": "Criar Pedido"
+  },
+  {
+   "fieldname": "data_entrega",
+   "fieldtype": "Datetime",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "label": "Data Entrega"
+  },
+  {
+   "fieldname": "configs_tab",
+   "fieldtype": "Tab Break",
+   "label": "Configs"
+  },
+  {
+   "fieldname": "artigo_a_editar",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Artigo",
+   "options": "Artigos"
+  },
+  {
+   "default": "Simples",
+   "fieldname": "modo_lancamento",
+   "fieldtype": "Select",
+   "label": "Modo de Lan\u00e7amento",
+   "options": "Simples\nTamanho\nTamanho + Modelo"
+  },
+  {
+   "fieldname": "botao_editar_itens",
+   "fieldtype": "Button",
+   "label": "Editar Itens"
+  },
+  {
+   "fieldname": "botao_encerrar_separacao",
+   "fieldtype": "Button",
+   "label": "Encerrar Separa\u00e7\u00e3o"
+  },
+  {
+   "fieldname": "botao_salvar_itens",
+   "fieldtype": "Button",
+   "hidden": 1,
+   "label": "Salvar Itens"
+  },
+  {
+   "fieldname": "section_break_lancamento",
+   "fieldtype": "Section Break",
+   "label": "Lan\u00e7amento"
+  },
+  {
+   "fieldname": "html_lancador_quantidade",
+   "fieldtype": "HTML",
+   "hidden": 1,
+   "label": "Quantidade"
+  },
+  {
+   "default": "0",
+   "fieldname": "check_swapper_edicao",
+   "fieldtype": "Check",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_entregue_qtd",
+   "fieldtype": "Data",
+   "label": "Total Entregue (Quantidade)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_vendido_qtd",
+   "fieldtype": "Data",
+   "label": "Total Vendido (Quantidade)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_sdpl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_entregue_vlr",
+   "fieldtype": "Currency",
+   "label": "Total Entregue (Valor)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_vendido_vlr",
+   "fieldtype": "Currency",
+   "label": "Total Vendido(Valor)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "botao_entregar_pedido",
+   "fieldtype": "Button",
+   "label": "Entregar Pedido"
+  },
+  {
+   "fieldname": "ref_ou_cb",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Referencia Ou C\u00f3digo de Barras"
+  },
+  {
+   "fieldname": "data_entregue",
+   "fieldtype": "Datetime",
+   "label": "Data Entregue",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_rrbg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "modelos_tab",
+   "fieldtype": "Tab Break",
+   "label": "Modelos",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tabela_de_modelos",
+   "fieldtype": "Table",
+   "label": "Modelos",
+   "options": "Modelos do Artigo no Pedido",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_lhzd",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_jaww",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_yfcu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_mool",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_wwns",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "botao_encerrar_fechamento",
+   "fieldtype": "Button",
+   "hidden": 1,
+   "label": "Encerrar Fechamento"
+  },
+  {
+   "default": "Consigna\u00e7\u00e3o",
+   "fieldname": "tipo_pedido",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Tipo de Pedido",
+   "options": "Consigna\u00e7\u00e3o\nVarejo\nAtacado\nEncomenda\nComplemento",
+   "read_only": 1
+  },
+  {
+   "fieldname": "config_tabela_precos",
+   "fieldtype": "Link",
+   "label": "Tabela de Pre\u00e7os",
+   "options": "Tabelas de Precos",
+   "read_only": 1
+  },
+  {
+   "default": "Modelo",
+   "fieldname": "config_faturar_por",
+   "fieldtype": "Select",
+   "label": "Faturar por:",
+   "options": "Modelo\nArtigo",
+   "print_hide": 1,
+   "read_only": 1,
+   "report_hide": 1
+  },
+  {
+   "fieldname": "faturamento_section",
+   "fieldtype": "Section Break",
+   "label": "Faturamento"
+  },
+  {
+   "default": "0",
+   "fieldname": "config_faturar_negativo",
+   "fieldtype": "Check",
+   "label": "Faturar negativo",
+   "print_hide": 1,
+   "report_hide": 1
+  },
+  {
+   "fieldname": "html_mostrador",
+   "fieldtype": "HTML",
+   "label": "Mostrador"
+  },
+  {
+   "fieldname": "status_faturamento",
+   "fieldtype": "Data",
+   "label": "Status Faturamento",
+   "read_only": 1
+  },
+  {
+   "fieldname": "faturamento",
+   "fieldtype": "Link",
+   "label": "Faturamento",
+   "options": "Faturamentos",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "pedido_numero",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Pedido N\u00ba",
+   "read_only": 1
+  },
+  {
+   "fieldname": "pedido_complemento",
+   "fieldtype": "Link",
+   "label": "Pedido Complemento",
+   "options": "Pedidos",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tab",
+   "fieldtype": "Column Break",
+   "label": "Configura\u00e7\u00f5es"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_calendar_and_gantt": 1,
+ "links": [],
+ "modified": "2024-11-30 16:28:39.734919",
+ "modified_by": "Administrator",
+ "module": "Vendas",
+ "name": "Pedidos",
+ "naming_rule": "Random",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "if_owner": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Desk User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "if_owner": 1,
+   "permlevel": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Colaborador",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "if_owner": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Colaborador",
+   "select": 1,
+   "share": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Administra\u00e7\u00e3o",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Administra\u00e7\u00e3o",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

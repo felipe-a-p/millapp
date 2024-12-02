@@ -1,0 +1,72 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-08-16 11:45:19.911667",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "tabela_preco_padrao",
+  "lista_de_tamanhos",
+  "descontos"
+ ],
+ "fields": [
+  {
+   "fieldname": "tabela_preco_padrao",
+   "fieldtype": "Link",
+   "label": "Tabela de Pre\u00e7o Padr\u00e3o",
+   "options": "Tabelas de Precos"
+  },
+  {
+   "fieldname": "lista_de_tamanhos",
+   "fieldtype": "Table",
+   "label": "Lista de Tamanhos",
+   "options": "Lista de Tamanhos"
+  },
+  {
+   "fieldname": "descontos",
+   "fieldtype": "Table",
+   "label": "Regras de Desconto",
+   "options": "Regras de Descontos"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-10-15 11:30:41.200346",
+ "modified_by": "Administrator",
+ "module": "App Milleniuns",
+ "name": "Configuracoes Gerais",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Administra\u00e7\u00e3o",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Desk User",
+   "share": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

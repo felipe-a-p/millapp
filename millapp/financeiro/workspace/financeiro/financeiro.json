@@ -1,0 +1,38 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"AOXp44Not2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Finan\u00e7as</span>\",\"col\":12}},{\"id\":\"MFjRjmJMbW\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Faturamentos\",\"col\":3}}]",
+ "creation": "2024-10-29 17:08:14.685171",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "money-coins-1",
+ "idx": 0,
+ "indicator_color": "",
+ "is_hidden": 0,
+ "label": "Financeiro",
+ "links": [],
+ "modified": "2024-11-12 11:15:54.786111",
+ "modified_by": "Administrator",
+ "module": "Financeiro",
+ "name": "Financeiro",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 10.1,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Faturamentos",
+   "link_to": "Faturamentos",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "Financeiro"
+}

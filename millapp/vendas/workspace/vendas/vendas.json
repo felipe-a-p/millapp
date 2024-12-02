@@ -1,0 +1,54 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"YA5rnDIYDU\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Vendas</span>\",\"col\":12}},{\"id\":\"U6qoc1xyFb\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Atendimentos Ativos\",\"col\":3}},{\"id\":\"t5bBz2Bk4Q\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Pedidos Abertos\",\"col\":3}},{\"id\":\"Vt4_dDrEQE\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Faturamentos\",\"col\":3}}]",
+ "creation": "2024-10-15 15:05:13.560031",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "income",
+ "idx": 0,
+ "indicator_color": "",
+ "is_hidden": 0,
+ "label": "Vendas",
+ "links": [],
+ "modified": "2024-12-01 09:54:51.032545",
+ "modified_by": "Administrator",
+ "module": "Vendas",
+ "name": "Vendas",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 7.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Atendimentos Ativos",
+   "link_to": "Atendimentos",
+   "stats_filter": "[[\"Atendimentos\",\"atendimento_state\",\"!=\",\"Fechado\",false]]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Pedidos Abertos",
+   "link_to": "Pedidos",
+   "stats_filter": "[[\"Pedidos\",\"pedido_state\",\"!=\",\"Faturado\",false]]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Faturamentos",
+   "link_to": "Faturamentos",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "Vendas"
+}

@@ -1,0 +1,57 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-09-09 17:49:53.385165",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "tipo",
+  "de",
+  "ate",
+  "pc_desconto"
+ ],
+ "fields": [
+  {
+   "default": "Consigna\u00e7\u00e3o",
+   "fieldname": "tipo",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Tipo",
+   "options": "Consigna\u00e7\u00e3o"
+  },
+  {
+   "fieldname": "ate",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "At\u00e9",
+   "precision": "2"
+  },
+  {
+   "fieldname": "pc_desconto",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "% de Desconto",
+   "precision": "2"
+  },
+  {
+   "fieldname": "de",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "De",
+   "precision": "2"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-09-17 16:47:20.489182",
+ "modified_by": "Administrator",
+ "module": "Vendas",
+ "name": "Regras de Descontos",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

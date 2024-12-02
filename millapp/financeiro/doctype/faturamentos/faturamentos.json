@@ -1,0 +1,260 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:FAT-{pedido}",
+ "creation": "2024-08-14 16:08:14.665356",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "faturamento_state",
+  "responsavel",
+  "column_break_oxda",
+  "origem",
+  "section_break_yavi",
+  "column_break_owvu",
+  "pedido",
+  "cliente",
+  "column_break_ywrz",
+  "data_criacao",
+  "data_vencimento",
+  "data_quitacao",
+  "section_break_cbts",
+  "valor_bruto_fatura",
+  "valor_liquido_fatura",
+  "column_break_uccp",
+  "desconto_pc",
+  "desconto_moeda",
+  "botao_calcular_desconto",
+  "section_break_nezl",
+  "total_pago",
+  "column_break_berp",
+  "valor_restante",
+  "column_break_jgyx",
+  "botao_novo_pagamento",
+  "section_break_wzzl",
+  "artigos_faturados",
+  "pagamentos_tab",
+  "pagamentos",
+  "cheques",
+  "artigos_tab",
+  "configura\u00e7\u00f5es_tab"
+ ],
+ "fields": [
+  {
+   "default": "Aberto",
+   "fieldname": "faturamento_state",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Estado",
+   "options": "Aberto\nPago\nInadimplente",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "responsavel",
+   "fieldtype": "Link",
+   "label": "Responsavel",
+   "options": "Contatos",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_oxda",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "origem",
+   "fieldtype": "Select",
+   "label": "Origem",
+   "options": "Varejo\nAtacado\nConsigna\u00e7\u00e3o\nServi\u00e7o",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_yavi",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_owvu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pedido",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Pedido",
+   "options": "Pedidos",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "data_criacao",
+   "fieldtype": "Date",
+   "label": "Data de Cria\u00e7\u00e3o",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "column_break_ywrz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cliente",
+   "fieldtype": "Link",
+   "label": "Cliente",
+   "options": "Contatos",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "data_vencimento",
+   "fieldtype": "Date",
+   "label": "Data de Vencimento",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "section_break_cbts",
+   "fieldtype": "Section Break",
+   "label": "Resumo"
+  },
+  {
+   "fieldname": "valor_bruto_fatura",
+   "fieldtype": "Currency",
+   "label": "Valor Bruto Fatura",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "valor_liquido_fatura",
+   "fieldtype": "Currency",
+   "label": "Valor Liquido Fatura",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_uccp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "desconto_pc",
+   "fieldtype": "Float",
+   "label": "Desconto (%)",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "desconto_moeda",
+   "fieldtype": "Currency",
+   "label": "Desconto (R$)",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_nezl",
+   "fieldtype": "Section Break",
+   "label": "Pagamento"
+  },
+  {
+   "fieldname": "botao_novo_pagamento",
+   "fieldtype": "Button",
+   "label": "Novo Pagamento"
+  },
+  {
+   "fieldname": "total_pago",
+   "fieldtype": "Currency",
+   "label": "Total Pago",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "artigos_faturados",
+   "fieldtype": "Table",
+   "label": "Artigos",
+   "options": "Artigos Faturados",
+   "read_only": 1
+  },
+  {
+   "fieldname": "pagamentos_tab",
+   "fieldtype": "Tab Break",
+   "label": "Pagamentos"
+  },
+  {
+   "fieldname": "pagamentos",
+   "fieldtype": "Table",
+   "label": "Pagamentos",
+   "options": "Pagamentos"
+  },
+  {
+   "fieldname": "artigos_tab",
+   "fieldtype": "Tab Break",
+   "label": "Artigos"
+  },
+  {
+   "fieldname": "configura\u00e7\u00f5es_tab",
+   "fieldtype": "Tab Break",
+   "label": "Configura\u00e7\u00f5es"
+  },
+  {
+   "fieldname": "botao_calcular_desconto",
+   "fieldtype": "Button",
+   "label": "Calcular desconto"
+  },
+  {
+   "fieldname": "column_break_berp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_jgyx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_wzzl",
+   "fieldtype": "Section Break",
+   "label": "Itens"
+  },
+  {
+   "fieldname": "valor_restante",
+   "fieldtype": "Currency",
+   "label": "Valor Restante",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cheques",
+   "fieldtype": "Table",
+   "label": "Cheques",
+   "options": "Cheques",
+   "read_only": 1
+  },
+  {
+   "fieldname": "data_quitacao",
+   "fieldtype": "Date",
+   "label": "Data de Quitacao"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-11-26 14:38:25.233337",
+ "modified_by": "Administrator",
+ "module": "Financeiro",
+ "name": "Faturamentos",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
