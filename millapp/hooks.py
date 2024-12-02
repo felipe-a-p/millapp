@@ -1,4 +1,4 @@
-app_name = "millapp"
+app_name = "nucleo"
 app_title = "App Milleniuns"
 app_publisher = "Felipe"
 app_description = "Custom Workflow"
