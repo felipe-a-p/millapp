@@ -1,5 +1,5 @@
 app_name = "nucleo"
-app_title = "App Milleniuns"
+app_title = "ERP"
 app_publisher = "Felipe"
 app_description = "Custom Workflow"
 app_email = "felipe-a-p@hotmail.com"
