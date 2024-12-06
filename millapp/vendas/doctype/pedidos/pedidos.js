@@ -642,7 +642,6 @@ const lancador = {
     async processar_dados_inseridos(cod_ou_ref) {
         this.frm.set_value('ref_ou_cb', '');
         cod_ou_ref = cod_ou_ref.replace(/^0+/, '');
-        console.log(cod_ou_ref)
         let artigo = Object.values(this.frm.dict_artigos).find(artigo => artigo.referencia === cod_ou_ref);
         if (artigo != undefined) {
             //REFERENCIA
@@ -833,12 +832,6 @@ const lancador = {
         const quantidade = parseInt($('#increment_value').val()) || 0;
         const modelo = Object.values(this.frm.dict_modelos).find(modelo => modelo.parent === artigo && modelo.modelo_padrao === 1);
         await this.editar_item(artigo, quantidade, funcao, 'artigos');
-
-        if (funcao == 'Substituir') {
-            if (this.frm.doc.estado_acerto == 'Aberto') {
-                this.logica_substituir_manual(artigo);
-            }
-        }
         await this.editar_item(modelo.name, quantidade, funcao, 'modelos');
 
         const refOuCbElement = document.querySelector('[data-fieldname="ref_ou_cb"] input');
@@ -853,7 +846,6 @@ const lancador = {
         } catch (error) {
             console.error(error);
         }
-
     },
 
     logica_substituir_manual: function (artigo) {

@@ -18,7 +18,6 @@ frappe.ui.form.on('Atendimentos', {
             console.error('Erro ao buscar configurações gerais:', error);
         }
         if (frm.is_new()) {
-            console.log('pedido novo')
             $.each(frm.fields_dict, function (fieldname, field) {
                 frm.set_df_property(fieldname, 'hidden', 0);
             });
@@ -201,9 +200,8 @@ criar_pedido = async function (frm) {
         if (frm.doc.data_visita) {
             campos_valores['data_entrega'] = frm.doc.data_visita;
         }
-
         const response = await frappe.call({
-            method: 'millapp.api.criar_registro',
+            method: 'millapp.apis.utils.criar_registro',
             args: {
                 doctype: 'Pedidos',
                 campos_valores: JSON.stringify(campos_valores)

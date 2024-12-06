@@ -15,6 +15,7 @@ def atualizar_campos(doctype, name, campos_json):
 
 @frappe.whitelist()
 def criar_registro(doctype, campos_valores):
+    print('velho_api, refatore-me')
     campos_valores = json.loads(campos_valores)  # Desserializa o JSON em um dicionário
     novo_registro = frappe.get_doc({
         'doctype': doctype,

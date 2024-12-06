@@ -121,12 +121,14 @@
   {
    "fieldname": "telefone_cliente",
    "fieldtype": "Read Only",
-   "label": "Telefone"
+   "label": "Telefone",
+   "permlevel": 1
   },
   {
    "fieldname": "endere\u00e7o",
    "fieldtype": "Read Only",
-   "label": "Endere\u00e7o"
+   "label": "Endere\u00e7o",
+   "permlevel": 1
   },
   {
    "fieldname": "artigos_do_pedido",
@@ -438,7 +440,7 @@
  "index_web_pages_for_search": 1,
  "is_calendar_and_gantt": 1,
  "links": [],
- "modified": "2024-11-30 16:28:39.734919",
+ "modified": "2024-12-04 22:42:11.597322",
  "modified_by": "Administrator",
  "module": "Vendas",
  "name": "Pedidos",
@@ -465,9 +467,9 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Desk User",
-   "share": 1,
-   "write": 1
+   "role": "Colaborador",
+   "select": 1,
+   "share": 1
   },
   {
    "email": 1,
@@ -480,18 +482,6 @@
    "role": "Colaborador",
    "share": 1,
    "write": 1
-  },
-  {
-   "create": 1,
-   "email": 1,
-   "export": 1,
-   "if_owner": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "Colaborador",
-   "select": 1,
-   "share": 1
   },
   {
    "create": 1,
