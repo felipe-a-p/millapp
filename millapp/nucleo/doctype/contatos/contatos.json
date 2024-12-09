@@ -195,7 +195,7 @@
    "link_fieldname": "cliente"
   }
  ],
- "modified": "2024-11-29 21:29:39.598053",
+ "modified": "2024-12-06 16:06:58.671055",
  "modified_by": "Administrator",
  "module": "Nucleo",
  "name": "Contatos",
@@ -216,12 +216,41 @@
   },
   {
    "create": 1,
-   "role": "Desk User",
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Administra\u00e7\u00e3o",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Administra\u00e7\u00e3o",
+   "share": 1,
    "write": 1
   },
   {
    "create": 1,
-   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "if_owner": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Colaborador",
+   "share": 1,
+   "write": 1
+  },
+  {
    "email": 1,
    "export": 1,
    "if_owner": 1,
@@ -229,8 +258,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Desk User",
-   "select": 1,
+   "role": "Colaborador",
    "share": 1,
    "write": 1
   }

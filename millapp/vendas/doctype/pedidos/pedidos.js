@@ -323,7 +323,7 @@ class Pedido {
                     const cliente = this.frm.doc.cliente;
                     let dados = await frappe.db.get_value('Contatos', cliente, 'cod_identificador')
                     let id = dados.message.cod_identificador
-                    let novo_nome = `C${id}/P${this.frm.doc.pedido_numero}`;
+                    let novo_nome = `${this.frm.doc.tipo_pedido[0]}-C${id}/P${this.frm.doc.pedido_numero}`;
                     this.nomear_pedido(novo_nome);
                     return true;
                 } else {
