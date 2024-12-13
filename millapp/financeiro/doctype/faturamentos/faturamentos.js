@@ -30,16 +30,6 @@ frappe.ui.form.on("Faturamentos", {
     },
 });
 
-
-function atualizar_valor_bruto_fatura(frm) {
-    let total = 0;
-    frm.doc.artigos_faturados.forEach(item => {
-        total += item.valor_bruto;
-    });
-    frm.set_value('valor_bruto_fatura', total);
-    calcular_valor_restante(frm);
-};
-
 async function calcular_desconto(frm) {
     const tipo_faturamento = frm.doc.origem;
     // TODO logica para editar desconto
@@ -86,7 +76,7 @@ function calcular_valor_restante(frm) {
     const valor_restante = frm.doc.valor_liquido_fatura - frm.doc.total_pago;
     frm.set_value('valor_restante', valor_restante);
     frm.refresh_field('valor_restante');
-    if (valor_restante == 0) {
+    if (valor_restante == 0 && frm.doc.total_pago > 0) {
         frm.set_value('faturamento_state', 'Pago');
     }
 };
@@ -94,6 +84,16 @@ function calcular_valor_restante(frm) {
 const Faturamento = {
     setup(frm) {
         this.frm = frm;
+        this.calcular_fatura_bruta();
+    },
+
+    calcular_fatura_bruta() {
+        let total = 0;
+        this.frm.doc.artigos_faturados.forEach(item => {
+            total += item.valor_bruto;
+        });
+        this.frm.set_value('valor_bruto_fatura', total);
+        calcular_valor_restante(this.frm);
     },
     async limpar_pagamentos() {
         frappe.confirm('Deseja realmente limpar os pagamentos?', () => {
@@ -173,7 +173,6 @@ const Pagamento = {
 
     async handlePrimaryAction() {
         const valores = this.dialog.get_values();
-        console.log(valores);
         if (!this.validatePaymentAmount(valores.valor)) return;
 
         const dadosPagamento = {
@@ -222,10 +221,8 @@ const Pagamento = {
 
     async registrarCheque(dados) {
         const camposCheque = this.getChequeFields(dados);
-        console.log(camposCheque);
         this.frm.add_child('cheques', camposCheque);
         this.frm.refresh_field('cheques');
-        console.log('Cheque registrado:', camposCheque);
     },
 
     getChequeFields(dados) {

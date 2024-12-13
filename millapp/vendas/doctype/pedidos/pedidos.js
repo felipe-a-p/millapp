@@ -474,7 +474,14 @@ class Pedido {
         this.frm.toggle_display('botao_iniciar_fechamento', false);
         this.frm.toggle_display('botao_encerrar_fechamento', true);
         this.iniciar_lancamento();
-        lancador.vender_tudo();
+        // verificar se a soma dos campos de devolvida e vendida é 0, se sim, vender tudo, se não, perguntar se quer apagar o historico
+        if (this.frm.doc.artigos_do_pedido.some(artigo => artigo.quantidade_devolvida !== 0 || artigo.quantidade_vendida !== 0)) {
+            if (confirm('Há itens com quantidade diferente de zero, deseja apagar o histórico?')) {
+                lancador.vender_tudo();
+            }
+        } else {
+            lancador.vender_tudo();
+        }
     };
 
     encerrar_fechamento() {
