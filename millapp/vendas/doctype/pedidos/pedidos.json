@@ -203,6 +203,7 @@
    "fieldname": "pedido_state",
    "fieldtype": "Select",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Etapa",
    "options": "Pre-Criado\nCriado\nSeparado\nEntregue\nFaturado\nPrototipo",
    "read_only": 1
@@ -290,6 +291,7 @@
   {
    "fieldname": "total_entregue_vlr",
    "fieldtype": "Currency",
+   "in_list_view": 1,
    "label": "Total Entregue (Valor)",
    "read_only": 1
   },
@@ -440,7 +442,7 @@
  "index_web_pages_for_search": 1,
  "is_calendar_and_gantt": 1,
  "links": [],
- "modified": "2024-12-04 22:42:11.597322",
+ "modified": "2024-12-09 11:12:34.364892",
  "modified_by": "Administrator",
  "module": "Vendas",
  "name": "Pedidos",
