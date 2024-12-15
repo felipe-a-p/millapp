@@ -96,8 +96,21 @@ frappe.ui.form.on("Pedidos", {
         frm.set_df_property('data_entrega', 'read_only', frm.doc.pedido_state == 'Entregue' || frm.doc.pedido_state == 'Fechado');
 
         // State : Faturado
-        frm.toggle_display('botao_iniciar_fechamento', frm.doc.pedido_state === 'Entregue');
+        frm.toggle_display(
+            'botao_iniciar_fechamento',
+            frm.doc.pedido_state === 'Entregue' &&
+            (frm.doc.estado_acerto === 'Aberto' || frm.doc.estado_acerto === 'Reaberto')
+        );
 
+        frm.toggle_display(
+            'botao_encerrar_fechamento',
+            frm.doc.pedido_state === 'Entregue' &&
+            frm.doc.estado_acerto === 'Fechando'
+        )
+
+        frm.toggle_display(
+
+        )
     },
     artigo_a_editar: function (frm) {
         if (frm.doc.artigo_a_editar) {
@@ -474,7 +487,6 @@ class Pedido {
         this.frm.toggle_display('botao_iniciar_fechamento', false);
         this.frm.toggle_display('botao_encerrar_fechamento', true);
         this.iniciar_lancamento();
-        // verificar se a soma dos campos de devolvida e vendida é 0, se sim, vender tudo, se não, perguntar se quer apagar o historico
         if (this.frm.doc.artigos_do_pedido.some(artigo => artigo.quantidade_devolvida !== 0 || artigo.quantidade_vendida !== 0)) {
             if (confirm('Há itens com quantidade diferente de zero, deseja apagar o histórico?')) {
                 lancador.vender_tudo();
