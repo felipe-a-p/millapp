@@ -27,7 +27,9 @@ frappe.ui.form.on('Atendimentos', {
         // Layout Base
         $('button').off('click');
         frm.trigger('update_lista_pedidos');
-        frm.disable_save(); // desativa botão salvar de cima
+        if (!frappe.user.has_role('Administração')) {
+            frm.disable_save();
+        };
 
         frm.toggle_display('botao_criar_atendimento', (frm.doc.atendimento_state === 'Criado'));
         frm.toggle_enable('cliente', frm.doc.atendimento_state === 'Criado');
