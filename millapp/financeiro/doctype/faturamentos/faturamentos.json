@@ -54,7 +54,7 @@
    "fieldname": "responsavel",
    "fieldtype": "Link",
    "label": "Responsavel",
-   "options": "Contatos",
+   "options": "User",
    "read_only": 1
   },
   {
@@ -234,7 +234,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-26 14:38:25.233337",
+ "modified": "2024-12-16 09:18:06.662905",
  "modified_by": "Administrator",
  "module": "Financeiro",
  "name": "Faturamentos",

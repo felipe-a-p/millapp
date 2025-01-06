@@ -1,4 +1,5 @@
 {
+ "app": "millapp",
  "charts": [],
  "content": "[{\"id\":\"MnfKgbnUl4\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Artigos</b></span>\",\"col\":12}},{\"id\":\"lMcCVwfZ35\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Grupos De Artigos\",\"col\":3}},{\"id\":\"IAWmiNaTtU\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Artigos\",\"col\":3}},{\"id\":\"KVmw04yq-Q\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Tabelas de Precos\",\"col\":3}}]",
  "creation": "2024-07-30 14:11:31.115047",
@@ -11,19 +12,19 @@
  "idx": 0,
  "indicator_color": "",
  "is_hidden": 0,
- "label": "Pe\u00e7as",
+ "label": "Itens",
  "links": [],
- "modified": "2024-10-16 08:14:27.073751",
+ "modified": "2024-12-16 16:25:06.715396",
  "modified_by": "Administrator",
  "module": "Materiais",
- "name": "Pe\u00e7as",
+ "name": "Itens",
  "number_cards": [],
  "owner": "Administrator",
  "parent_page": "",
  "public": 1,
  "quick_lists": [],
  "roles": [],
- "sequence_id": 9.0,
+ "sequence_id": 4.0,
  "shortcuts": [
   {
    "color": "Grey",
@@ -50,5 +51,6 @@
    "type": "DocType"
   }
  ],
- "title": "Pe\u00e7as"
+ "title": "Itens",
+ "type": "Workspace"
 }
