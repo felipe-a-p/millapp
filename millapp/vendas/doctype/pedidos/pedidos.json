@@ -378,7 +378,7 @@
    "read_only": 1
   },
   {
-   "default": "Modelo",
+   "default": "Artigo",
    "fieldname": "config_faturar_por",
    "fieldtype": "Select",
    "label": "Faturar por:",
@@ -442,7 +442,7 @@
  "index_web_pages_for_search": 1,
  "is_calendar_and_gantt": 1,
  "links": [],
- "modified": "2024-12-09 11:12:34.364892",
+ "modified": "2025-01-06 10:45:49.589106",
  "modified_by": "Administrator",
  "module": "Vendas",
  "name": "Pedidos",
