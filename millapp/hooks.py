@@ -8,6 +8,7 @@ app_license = "mit"
 app_include_css = "/assets/millapp/css/custom.css"
 
 fixtures = [
+    "Report",
     "Print Format",
     {"dt": "Role"},
     {"dt": "Workspace"}

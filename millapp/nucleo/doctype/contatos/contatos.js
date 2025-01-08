@@ -7,6 +7,9 @@ frappe.ui.form.on("Contatos", {
     onload: function (frm) {
         atualizar_campos_visiveis_obrigatorios(frm);
     },
+    refresh: function (frm) {
+        add_system_buttons(frm);
+    },
     validate: async function (frm) {
         await cpf_inserido(frm);
         if (frm.doc.pessoa == 'Fisica' || frm.doc.pessoa == 'MEI') {
@@ -60,6 +63,13 @@ frappe.ui.form.on("Contatos", {
     }
 });
 
+function add_system_buttons(frm) {
+    frm.add_custom_button(__('Relatório de Vendas'), function () {
+        frappe.set_route('query-report', 'Desempenho Consignado', {
+            'contato': frm.doc.name
+        });
+    }, __("Relatórios"));
+}
 async function cpf_inserido(frm) {
     let cpf = new Cpf(frm.doc.cpf, frm);
     frm.cpf_instance = cpf;
