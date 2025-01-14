@@ -1,4 +1,4 @@
-frappe.query_reports["Desempenho Consignado"] = {
+frappe.query_reports["Desempenho Consignado Cliente"] = {
 	filters: [
 		{
 			"fieldname": "contato",

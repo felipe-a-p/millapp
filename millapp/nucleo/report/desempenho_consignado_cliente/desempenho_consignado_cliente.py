@@ -6,11 +6,9 @@ from datetime import datetime
 # Outras importações ou funções, caso necessário
 
 def execute(filters=None):
-    # Certifique-se de que os filtros estão corretamente definidos
     if not filters:
         filters = {}
 
-    # Defina as colunas que você quer no seu relatório
     columns = [
         {"fieldname": "data_entrega", "label": _("Data de Entrega"), "fieldtype": "Date", "width": 150},
         {"fieldname": "pedido_numero", "label": _("Pedido Número"), "fieldtype": "Data", "width": 150},
@@ -47,7 +45,6 @@ def execute(filters=None):
 
     chart = get_chart_data(filters, columns, data)
 
-    # Adicionando a linha de summary
     summary = {
         "pedido_numero": _("Totais"),
         "total_entregue": total_entregue,
@@ -75,24 +72,19 @@ def get_report_summary(filters, total_entregue, total_vendido):
     
     return summary_data
 
+
+
+
 def get_chart_data(filters, columns, data):
-    # Ordenando os dados pelo ano e mês da data_entrega
     data = sorted(data, key=lambda row: row.get("data_entrega").strftime("%Y-%m") if isinstance(row.get("data_entrega"), datetime) else row.get("data_entreg"))
-
-    # Extraindo os labels (datas de entrega)
     labels = [row.get('data_entrega').strftime("%Y-%m") if isinstance(row.get('data_entrega'), datetime) else row.get('data_entreg') for row in data]
-
-    # Extraindo os valores para os datasets
     total_entregue = [row.get('total_entregue', 0) for row in data]
     total_vendido = [row.get('total_vendido', 0) for row in data]
-
-    # Calculando a porcentagem vendida
     percentual_vendido = [
         (vendido / entregue * 100 if entregue > 0 else 0)
         for vendido, entregue in zip(total_vendido, total_entregue)
     ]
 
-    # Gerando os dados para o gráfico
     chart_data = {
         "data": {
             "labels": labels,
@@ -117,11 +109,11 @@ def get_chart_data(filters, columns, data):
                 },
             ]
         },
-        "type": "axis-mixed",  # Tipo de gráfico com eixos mistos
-        
+        "type": "axis-mixed",          
         "fieldtype": "Currency",
         "options": "currency",
         "currency": filters.get("currency", "BRL"),
     }
 
     return chart_data
+

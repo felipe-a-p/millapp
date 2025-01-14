@@ -64,8 +64,13 @@ frappe.ui.form.on("Contatos", {
 });
 
 function add_system_buttons(frm) {
-    frm.add_custom_button(__('Relatório de Vendas'), function () {
-        frappe.set_route('query-report', 'Desempenho Consignado', {
+    frm.add_custom_button(__('Desempenho Consignação'), function () {
+        frappe.set_route('query-report', 'Desempenho Consignado Cliente', {
+            'contato': frm.doc.name
+        });
+    }, __("Relatórios"));
+    frm.add_custom_button(__('Desempenho Artigos Consignados'), function () {
+        frappe.set_route('query-report', 'Desempenho Artigos Consignados Cliente', {
             'contato': frm.doc.name
         });
     }, __("Relatórios"));
