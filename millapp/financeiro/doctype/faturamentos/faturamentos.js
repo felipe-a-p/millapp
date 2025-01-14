@@ -244,7 +244,7 @@ const Pagamento = {
     updateMetodoOptions() {
         const METODO_OPTIONS = {
             "A Vista": "Dinheiro\nDébito\nPix",
-            "A Prazo": "Crédito\nCheque\nBoleto\nDepósito",
+            "A Prazo": "Crédito\nCheque\nBoleto\nDepósito\nBrinde",
         };
 
         const tipo = this.dialog.get_value('tipo');

@@ -35,9 +35,7 @@
   "botao_novo_pedido",
   "lista_pedidos_html",
   "responsaveis_tab",
-  "resp_atendimento",
-  "resp_separacao",
-  "resp_logistico",
+  "resp_externo_padrao",
   "metodo_captacao",
   "tabela_precos",
   "informa\u00e7\u00f5es_tab",
@@ -66,21 +64,6 @@
    "fieldname": "metodo_captacao",
    "fieldtype": "Select",
    "label": "Metodo de Capta\u00e7\u00e3o"
-  },
-  {
-   "fieldname": "resp_atendimento",
-   "fieldtype": "Data",
-   "label": "Resp. Atendimento"
-  },
-  {
-   "fieldname": "resp_separacao",
-   "fieldtype": "Data",
-   "label": "Resp. Separa\u00e7\u00e3o"
-  },
-  {
-   "fieldname": "resp_logistico",
-   "fieldtype": "Data",
-   "label": "Resp. Logistico"
   },
   {
    "fieldname": "telefone_principal",
@@ -169,19 +152,22 @@
    "fieldname": "rua",
    "fieldtype": "Data",
    "label": "Rua",
-   "permlevel": 1
+   "permlevel": 1,
+   "read_only": 1
   },
   {
    "fieldname": "casa_complemento",
    "fieldtype": "Data",
    "label": "Casa + Complemento",
-   "permlevel": 1
+   "permlevel": 1,
+   "read_only": 1
   },
   {
    "fieldname": "bairro",
    "fieldtype": "Data",
    "label": "Bairro",
-   "permlevel": 1
+   "permlevel": 1,
+   "read_only": 1
   },
   {
    "fieldname": "column_break_bsad",
@@ -193,13 +179,15 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Cidade",
-   "permlevel": 1
+   "permlevel": 1,
+   "read_only": 1
   },
   {
    "fieldname": "estado",
    "fieldtype": "Data",
    "label": "Estado",
-   "permlevel": 1
+   "permlevel": 1,
+   "read_only": 1
   },
   {
    "fieldname": "botao_atualizar_cadastro",
@@ -215,13 +203,15 @@
    "fieldname": "latitude",
    "fieldtype": "Data",
    "label": "Latitude",
-   "permlevel": 1
+   "permlevel": 1,
+   "read_only": 1
   },
   {
    "fieldname": "longitude",
    "fieldtype": "Data",
    "label": "Longitude",
-   "permlevel": 1
+   "permlevel": 1,
+   "read_only": 1
   },
   {
    "fieldname": "botao_abrir_whattsapp",
@@ -239,6 +229,12 @@
    "fieldtype": "Data",
    "label": "Cod Cliente",
    "read_only": 1
+  },
+  {
+   "fieldname": "resp_externo_padrao",
+   "fieldtype": "Data",
+   "label": "Resp. Externo Padr\u00e3o",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -249,7 +245,7 @@
    "link_fieldname": "atendimento"
   }
  ],
- "modified": "2024-12-04 22:43:10.616671",
+ "modified": "2025-01-12 12:53:14.245972",
  "modified_by": "Administrator",
  "module": "Atendimento",
  "name": "Atendimentos",
