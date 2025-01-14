@@ -50,3 +50,15 @@ def atualizar_campos(doctype, name, campos_json):
     
     return doc.name
 
+@frappe.whitelist()
+def get_filhos(doctype, parent_name):
+    filhos = frappe.get_all(
+        doctype,
+        filters={'parent': parent_name},
+        fields=['name'],
+        ignore_permissions=True 
+    )
+    print(filhos)
+    return filhos
+
+
