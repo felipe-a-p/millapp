@@ -1,5 +1,6 @@
 // Copyright (c) 2024, Felipe and contributors
 // For license information, please see license.txt
+frappe.require(['/assets/millapp/js/utils.js'])
 
 frappe.ui.form.on("Faturamentos", {
     onload: function (frm) {
@@ -9,7 +10,7 @@ frappe.ui.form.on("Faturamentos", {
             button.removeEventListener('click', () => { });
         });
         Faturamento.setup(frm);
-
+        adicionar_botoes(frm);
         frm.fields_dict.botao_novo_pagamento.$input.on('click', () => {
             Pagamento.setup(frm);
         });
@@ -29,6 +30,16 @@ frappe.ui.form.on("Faturamentos", {
         }
     },
 });
+
+function adicionar_botoes(frm) {
+    frm.add_custom_button(__('God Mode'), function () {
+        utils.god_mode(frm);
+    }, 'Administração');
+
+    frm.add_custom_button(__('GOTO ATENDIMENTO'), function () {
+        goto_atendimento(frm);
+    });
+}
 
 async function calcular_desconto(frm) {
     const tipo_faturamento = frm.doc.origem;
@@ -193,7 +204,9 @@ const Pagamento = {
     },
 
     validatePaymentAmount(valor) {
-        if (valor <= 0 || valor > this.frm.doc.valor_restante) {
+        const tolerance = 0.01;
+
+        if (Math.abs(valor) <= tolerance || Math.abs(valor - this.frm.doc.valor_restante) > tolerance) {
             frappe.msgprint(
                 'O valor do pagamento deve ser positivo e não pode ser maior que o valor restante.'
             );
@@ -328,11 +341,39 @@ const Pagamento = {
         if (this.frm.doc.valor_restante <= 0) {
             this.frm.set_value('faturamento_state', 'Pago');
             frappe.msgprint('Faturamento Quitado!');
+            if (confirm('Deseja voltar ao Atendimento?')) {
+                goto_atendimento(this.frm);
+            }
         } else {
             frappe.msgprint('Pagamento registrado com sucesso.');
         }
     },
 };
+
+function goto_atendimento(frm) {
+    let pedido = frm.doc.pedido;
+    frappe.call({
+        method: 'frappe.client.get',
+        args: {
+            doctype: 'Pedidos', // Nome do Doctype
+            name: pedido, // O nome do pedido
+        },
+        callback: function (r) {
+            if (r.message) {
+                // Supondo que o atendimento esteja no campo "atendimento" do pedido
+                let atendimento = r.message.atendimento;
+
+                // Redireciona para o Atendimento
+                if (atendimento) {
+                    window.location.href = `/app/atendimentos/${atendimento}`;
+                } else {
+                    frappe.msgprint('Atendimento não encontrado!');
+                }
+            }
+        }
+    });
+}
+
 
 
 // TODO CHEQUES

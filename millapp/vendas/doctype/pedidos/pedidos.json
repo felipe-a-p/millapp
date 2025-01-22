@@ -19,6 +19,7 @@
   "botao_criar_pedido",
   "pedido_numero",
   "column_break_rrbg",
+  "responsavel",
   "data_criacao",
   "data_entregue",
   "data_fechamento",
@@ -56,6 +57,8 @@
   "html_mostrador",
   "section_break_lhzd",
   "column_break_jaww",
+  "botao_leitor_retroativo",
+  "cod_barras_retroativo",
   "column_break_yfcu",
   "botao_salvar_itens",
   "section_break_moam",
@@ -108,6 +111,7 @@
    "fieldname": "cliente",
    "fieldtype": "Link",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Cliente",
    "options": "Contatos",
    "read_only": 1,
@@ -437,12 +441,30 @@
    "fieldname": "tab",
    "fieldtype": "Column Break",
    "label": "Configura\u00e7\u00f5es"
+  },
+  {
+   "fieldname": "responsavel",
+   "fieldtype": "Link",
+   "label": "Responsavel",
+   "options": "User"
+  },
+  {
+   "fieldname": "botao_leitor_retroativo",
+   "fieldtype": "Button",
+   "label": "Leitor Retroativo"
+  },
+  {
+   "default": "0",
+   "fieldname": "cod_barras_retroativo",
+   "fieldtype": "Check",
+   "label": "Leitor Retroativo",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_calendar_and_gantt": 1,
  "links": [],
- "modified": "2025-01-14 11:22:44.676652",
+ "modified": "2025-01-22 09:16:21.325511",
  "modified_by": "Administrator",
  "module": "Vendas",
  "name": "Pedidos",

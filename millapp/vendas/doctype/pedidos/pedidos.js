@@ -17,6 +17,7 @@ frappe.ui.form.on("Pedidos", {
     },
     before_save(frm) {
         calcular_valores_entregue_vendido(frm);
+        frm.set_value('artigo_a_editar', '');
         let mudancas = comparar_mudancas_de_artigos(frm)
         // TODO IF status == entregue e houver mudanças alterar estoque da praça/semana
     },
@@ -49,6 +50,7 @@ frappe.ui.form.on("Pedidos", {
             { selector: 'button[data-fieldname="botao_entregar_pedido"]', event: 'click', handler: () => frm.pedido.entregar_pedido() },
             { selector: 'button[data-fieldname="botao_iniciar_fechamento"]', event: 'click', handler: () => frm.pedido.iniciar_fechamento() },
             { selector: 'button[data-fieldname="botao_encerrar_fechamento"]', event: 'click', handler: () => frm.pedido.encerrar_fechamento() },
+            { selector: 'button[data-fieldname="botao_leitor_retroativo"]', event: 'click', handler: () => lancador.botao_leitor_retorativo() },
         ];
 
         function applyHandlers() {
@@ -129,16 +131,7 @@ frappe.ui.form.on('Artigos no Pedido', {
 function adicionar_botoes(frm) {
     acoes.setup(frm);
     frm.add_custom_button(__('God Mode'), function () {
-        if (frappe.user.has_role('Administração')) {
-            $.each(frm.fields_dict, function (fieldname, field) {
-                // Verifica se o campo existe e remove a propriedade 'readonly'
-                if (field.fieldtype != 'Section Break' && field.fieldtype != 'Column Break') {
-                    frm.toggle_enable(fieldname, true);
-                }
-            });
-        } else {
-            frappe.msgprint(__('Você não tem permissão para acessar o God Mode'));
-        }
+        utils.god_mode(frm);
     }, "Administração");
     frm.add_custom_button(__('GerarFatura'), function () {
         if (frappe.user.has_role('Administração')) {
@@ -148,12 +141,30 @@ function adicionar_botoes(frm) {
             frappe.msgprint(__('Você não tem permissão para gerar fatura'));
         }
     }, "Administração");
+    frm.add_custom_button(__('Alterar Atendimento'), function () {
+        alterar_atendimento(frm);
+    }, "Administração");
+
+
     frm.add_custom_button(__('Criar Complemento'), function () {
         acoes.criar_complemento();
     }, "Ações");
-    frm.add_custom_button(__('Alterar Atendimento'), function () {
-        alterar_atendimento(frm);
+
+    frm.add_custom_button(__('Reabrir Pedido'), function () {
+        frm.pedido.reabrir_pedido();
     }, "Ações");
+
+
+    frm.add_custom_button(__('Desempenho Consignação'), function () {
+        frappe.set_route('query-report', 'Desempenho Consignado Cliente', {
+            'contato': frm.doc.cliente
+        });
+    }, __("Relatórios"));
+    frm.add_custom_button(__('Desempenho Artigos Consignados'), function () {
+        frappe.set_route('query-report', 'Desempenho Artigos Consignados Cliente', {
+            'contato': frm.doc.cliente
+        });
+    }, __("Relatórios"));
 }
 
 function cancelar_pedido(frm) {
@@ -249,20 +260,35 @@ function calcular_valores_entregue_vendido(frm) {
             total_entregue_qtd_var += row.quantidade_entregue;
             total_entregue_vlr_var += row.valor_total_entregue;
         }
-    });
 
-    frm.doc.artigos_do_pedido.forEach(function (row) {
-        if (row.quantidade_entregue && row.preco_etiqueta) {
+        if (row.quantidade_vendida != null && row.quantidade_vendida !== 0) { // Verifique se o valor é diferente de null ou 0
             total_vendido_qtd_var += row.quantidade_vendida;
             total_vendido_vlr_var += row.total_vendido;
         }
     });
 
-    frm.set_value('total_entregue_qtd', total_entregue_qtd_var);
-    frm.set_value('total_entregue_vlr', total_entregue_vlr_var);
-    frm.set_value('total_vendido_qtd', total_vendido_qtd_var);
-    frm.set_value('total_vendido_vlr', total_vendido_vlr_var);
-};
+    // Atualizando os valores se necessário
+    if (Math.abs(frm.doc.total_entregue_qtd - total_entregue_qtd_var) > 0.1) {
+        frm.set_value('total_entregue_qtd', total_entregue_qtd_var);
+        console.log('Updated total_entregue_qtd', Math.abs(frm.doc.total_entregue_qtd - total_entregue_qtd_var) > 0.1); // Log para atualização
+    }
+
+    if (Math.abs(frm.doc.total_entregue_vlr - total_entregue_vlr_var) > 0.1) {
+        frm.set_value('total_entregue_vlr', total_entregue_vlr_var);
+        console.log('Updated total_entregue_vlr', total_entregue_vlr_var); // Log para atualização
+    }
+
+    if (Math.abs(frm.doc.total_vendido_qtd - total_vendido_qtd_var) > 0.1) {
+        frm.set_value('total_vendido_qtd', total_vendido_qtd_var);
+        console.log('Updated total_vendido_qtd', total_vendido_qtd_var);
+    }
+
+    if (Math.abs(frm.doc.total_vendido_vlr - total_vendido_vlr_var) > 0.1) {
+        frm.set_value('total_vendido_vlr', total_vendido_vlr_var);
+        console.log('Updated total_vendido_vlr', Math.abs(frm.doc.total_vendido_vlr - total_vendido_vlr_var)) // Log para atualização
+    }
+}
+
 
 class Pedido {
     constructor(frm) {
@@ -318,7 +344,7 @@ class Pedido {
                     await this.definir_numero_pedido();
                     await this.frm.save();
                     frappe.call({
-                        method: 'millapp.api.atualizar_campos',
+                        method: 'millapp.apis.utils.atualizar_campos',
                         args: {
                             doctype: 'Atendimentos',
                             name: this.frm.doc.atendimento,
@@ -360,10 +386,7 @@ class Pedido {
                     this.nomear_pedido(novo_nome);
                 })
             }
-
-
         }
-
     }
 
     async iniciar_lancamento() {
@@ -487,12 +510,28 @@ class Pedido {
         this.frm.toggle_display('botao_iniciar_fechamento', false);
         this.frm.toggle_display('botao_encerrar_fechamento', true);
         this.iniciar_lancamento();
+
         if (this.frm.doc.artigos_do_pedido.some(artigo => artigo.quantidade_devolvida !== 0 || artigo.quantidade_vendida !== 0)) {
-            if (confirm('Há itens com quantidade diferente de zero, deseja apagar o histórico?')) {
-                lancador.vender_tudo();
-            }
+            frappe.prompt(
+                {
+                    label: "O que deseja fazer com o histórico existente?",
+                    fieldname: "action",
+                    fieldtype: "Select",
+                    options: "Apagar\nManter",
+                    reqd: 1
+                },
+                (values) => {
+                    if (values.action === "Apagar") {
+                        lancador.vender_tudo(); // Executa a ação de apagar histórico
+                    } else {
+                        frappe.msgprint("Histórico mantido."); // Opcional: Exibe mensagem de confirmação
+                    }
+                },
+                "Atenção",
+                "Confirmar"
+            );
         } else {
-            lancador.vender_tudo();
+            lancador.vender_tudo(); // Caso não haja itens com quantidade diferente de zero
         }
     };
 
@@ -521,7 +560,7 @@ class Pedido {
         }
     };
 
-    gerar_fatura() {
+    async gerar_fatura() {
         const config_faturar_negativo = this.frm.doc.config_faturar_negativo;
         let itens_do_pedido;
         let artigos_faturados;
@@ -541,7 +580,7 @@ class Pedido {
         } else if (this.frm.doc.config_faturar_por == "Modelo") {
             itens_do_pedido = this.frm.doc.tabela_de_modelos.filter(artigo => {
                 return config_faturar_negativo ? artigo.quantidade_vendida !== 0 : artigo.quantidade_vendida > 0;
-            })
+            });
             if (itens_do_pedido.length > 0) {
                 artigos_faturados = itens_do_pedido.map(artigo => {
                     let preco_etiqueta = null;
@@ -562,34 +601,63 @@ class Pedido {
                 });
             }
         }
-        frappe.call({
-            method: 'millapp.apis.utils.criar_registro',
+
+        const existe = await frappe.call({
+            method: 'frappe.client.get_list',
             args: {
+                doctype: "Faturamentos",
+                fields: ["name"],
+                filters: { pedido: this.frm.doc.name },
+                limit_page_length: 1,
+            }
+        }).then(response => {
+            return response.message && response.message.length > 0 ? response.message[0].name : null;
+        }).catch(error => {
+            console.error('Erro ao verificar a existência:', error);
+            return null;
+        });
+
+
+        const campos_faturamento = {
+            'artigos_faturados': artigos_faturados,
+            'faturamento_state': 'Aberto',
+            'valor_liquido_fatura': 0,
+            'desconto_pc': 0,
+            'desconto_moeda': 0,
+        };
+
+        const metodo = existe ? 'millapp.apis.utils.atualizar_campos' : 'millapp.apis.utils.criar_registro';
+        const args = existe
+            ? { doctype: 'Faturamentos', name: existe, campos_json: JSON.stringify(campos_faturamento) }
+            : {
                 doctype: 'Faturamentos',
                 campos_valores: JSON.stringify({
+                    ...campos_faturamento,
                     'pedido': this.frm.doc.name,
                     'cliente': this.frm.doc.cliente,
                     'atendimento': this.frm.doc.name,
                     'origem': this.frm.doc.tipo_pedido,
-                    'estado': 'Aberto',
                     'data_criacao': frappe.datetime.now_datetime(),
                     'data_vencimento': frappe.datetime.add_days(frappe.datetime.now_datetime(), 0),
-                    'artigos_faturados': artigos_faturados
+                    'responsavel': this.frm.doc.responsavel,
                 })
-            },
+            };
+
+        frappe.call({
+            method: metodo,
+            args: args,
             callback: function (response) {
                 if (response.message) {
-                    window.location.href = `/app/faturamentos/${response.message}`;
-                } else {
-                    frappe.msgprint(__('Erro ao tentar criar o faturamento.'));
+                    window.location.href = `/app/faturamentos/${response.message.name}`;
                 }
             },
             error: function (error) {
                 console.error('Erro na chamada do método:', error);
-                frappe.msgprint(__('Erro ao tentar criar o faturamento.'));
+                frappe.msgprint(__('Erro ao tentar processar o faturamento.'));
             }
         });
-    };
+    }
+
 
     async definir_numero_pedido() {
         await frappe.call({
@@ -608,6 +676,20 @@ class Pedido {
                 }
             }
         })
+    }
+
+    reabrir_pedido() {
+        if (this.frm.doc.estado_acerto === 'Fechado') {
+            // TODO criar configuração para definir o tempo de reabertura
+            let prazo_reabertura = 7;
+            let data_fechamento = this.frm.doc.data_fechamento;
+            let data_atual = frappe.datetime.now_datetime();
+            let diferenca = frappe.datetime.get_diff(data_atual, data_fechamento);
+            if (diferenca <= prazo_reabertura) {
+                this.frm.set_value('estado_acerto', 'Fechando');
+                this.frm.set_value('pedido_state', 'Entregue');
+            }
+        }
     }
 }
 
@@ -658,6 +740,18 @@ const lancador = {
 
     },
 
+    botao_leitor_retorativo() {
+        // confirm "deseja mudar para modo leitor retroativo?"
+        // salvar doc
+        // inverter o bool do cod_barras_retroativo
+        if (confirm('Deseja mudar para o modo leitor retroativo?')) {
+            console.log(this.frm)
+            this.frm.set_value('cod_barras_retroativo', !this.frm.doc.cod_barras_retroativo);
+            this.frm.save()
+        }
+
+    },
+
     async processar_dados_inseridos(cod_ou_ref) {
         this.frm.set_value('ref_ou_cb', '');
         cod_ou_ref = cod_ou_ref.replace(/^0+/, '');
@@ -682,8 +776,12 @@ const lancador = {
             if (modelo != undefined) {
                 this.frm.set_value('artigo_a_editar', modelo.parent);
                 this.desmontar_html_lancamento_manual();
-                await this.editar_item(modelo.parent, 1, 'Somar', 'artigos');
-                await this.editar_item(modelo.name, 1, 'Somar', 'modelos');
+                let acao = 'Somar';
+                if (this.frm.doc.cod_barras_retroativo) {
+                    acao = 'Subtrair';
+                }
+                await this.editar_item(modelo.parent, 1, acao, 'artigos');
+                await this.editar_item(modelo.name, 1, acao, 'modelos');
                 this.frm.set_value('ref_ou_cb', '');
             } else {
                 this.frm.set_value('artigo_a_editar', '');
@@ -700,7 +798,8 @@ const lancador = {
                 indicator: 'red',
                 message: ('Valor: ' + cod_ou_ref + ' não localizado.')
             });
-            frappe.utils.play_sound('error');
+
+            frappe.utils.play_sound('erro_longo');
         }
 
     },
@@ -885,7 +984,6 @@ const lancador = {
             frappe.model.remove_from_locals(tabela, registro.name);
         });
         this.frm.doc[tabela] = registros.filter(registro => registro.artigo != artigo);
-
     },
 
     desmontar_html_lancamento_manual: function () {

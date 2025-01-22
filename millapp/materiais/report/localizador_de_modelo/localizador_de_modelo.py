@@ -29,6 +29,7 @@ def get_columns() -> list[dict]:
             "fieldtype": "link",
             "options": "Pedidos",
 			"width": 150,
+            "get_link": True 
         },
         {
             "label": _("Data Acerto"),
@@ -92,5 +93,7 @@ def get_data(filters) -> list[list]:
     """
     # Passa os parâmetros para a consulta
     data = frappe.db.sql(query, {"modelos": modelos, "pedido_state": pedido_state, "data_maxima_acerto": data_maxima_acerto}, as_dict=True)
-    
+    for row in data:
+        row['pedido'] = f'<a href="/app/pedidos/{row["pedido"]}" target="_blank">{row["pedido"]}</a>'  # Link manual
+
     return data

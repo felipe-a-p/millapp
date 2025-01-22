@@ -10,20 +10,15 @@ frappe.query_reports["Localizador de Modelo"] = {
 			"options": "Artigos",
 			"reqd": 1,
 			"on_change": function () {
-				// Obter o valor selecionado no campo "artigo"
 				const artigo = frappe.query_report.get_filter_value("artigo");
 				console.log(artigo);
-				// Verificar se o campo "artigo" foi preenchido
 				if (!artigo) {
 					frappe.msgprint(__("Por favor, selecione um Artigo primeiro."));
 					return;
 				}
-
-				// Chamar a função get_data do campo "modelos"
 				const modelos_filter = frappe.query_report.get_filter("modelos");
 				if (modelos_filter) {
 					modelos_filter.get_data().then(data => {
-						// Definir os modelos como selecionados por padrão
 						frappe.query_report.set_filter_value("modelos", data.map(modelo => modelo.value));
 					});
 				}
@@ -34,21 +29,18 @@ frappe.query_reports["Localizador de Modelo"] = {
 			"label": __("Modelos"),
 			"fieldtype": "MultiSelectList",
 			get_data: function (txt) {
-				// Obter o valor selecionado no campo "artigo"
 				const artigo = frappe.query_report.get_filter_value("artigo");
 				console.log(artigo);
-				// Verificar se o campo "artigo" foi preenchido
 				if (!artigo) {
 					frappe.msgprint(__("Por favor, selecione um Artigo primeiro."));
 					return [];
 				}
 
-				// Chamada ao servidor para obter os modelos relacionados ao artigo
 				return frappe.call({
-					method: "millapp.apis.utils.get_filhos",  // Caminho para sua função
+					method: "millapp.apis.utils.get_filhos",
 					args: {
-						doctype: "Modelos de Artigos",  // O doctype que você está consultando
-						parent_name: artigo  // Nome do Artigo selecionado
+						doctype: "Modelos de Artigos",
+						parent_name: artigo
 					}
 				}).then(r => {
 					const modelos = (r.message || []).map(modelo => ({
@@ -56,7 +48,6 @@ frappe.query_reports["Localizador de Modelo"] = {
 						description: modelo.name
 					}));
 
-					// Definir os modelos como selecionados por padrão
 					frappe.query_report.set_filter_value("modelos", modelos.map(modelo => modelo.value));
 
 					return modelos;

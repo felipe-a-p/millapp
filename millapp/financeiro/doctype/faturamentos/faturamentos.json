@@ -90,8 +90,8 @@
    "fieldname": "data_criacao",
    "fieldtype": "Date",
    "label": "Data de Cria\u00e7\u00e3o",
-   "reqd": 1,
-   "set_only_once": 1
+   "read_only": 1,
+   "reqd": 1
   },
   {
    "fieldname": "column_break_ywrz",
@@ -109,8 +109,8 @@
    "fieldname": "data_vencimento",
    "fieldtype": "Date",
    "label": "Data de Vencimento",
-   "reqd": 1,
-   "set_only_once": 1
+   "read_only": 1,
+   "reqd": 1
   },
   {
    "fieldname": "section_break_cbts",
@@ -234,7 +234,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-12-16 09:18:06.662905",
+ "modified": "2025-01-15 10:53:56.066464",
  "modified_by": "Administrator",
  "module": "Financeiro",
  "name": "Faturamentos",

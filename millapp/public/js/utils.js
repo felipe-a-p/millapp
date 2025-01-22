@@ -54,3 +54,23 @@ utils.tem_pedido_novo = function (cliente) {
 utils.tem_faturamento_aberto = function (cliente) {
     return utils.verificarRegistroAberto('Faturamentos', cliente, 'faturamento_state', 'Pago');
 };
+
+// GOD MODE
+utils.god_mode = function (frm) {
+    if (frappe.user.has_role('Administração')) {
+        $.each(frm.fields_dict, function (fieldname, field) {
+            // Verifica se o campo existe e não é do tipo 'Section Break' ou 'Column Break'
+            if (field.fieldtype !== 'Section Break' && field.fieldtype !== 'Column Break') {
+                frm.toggle_enable(fieldname, true);
+                if (field.read_only) {
+                    frm.set_df_property(fieldname, 'read_only', false);
+                }
+                if (field.set_only_once) {
+                    frm.set_df_property(fieldname, 'set_only_once', false);
+                }
+            }
+        });
+    } else {
+        frappe.msgprint(__('Você não tem permissão para acessar o God Mode'));
+    }
+};

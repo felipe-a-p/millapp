@@ -30,7 +30,7 @@ frappe.ui.form.on('Atendimentos', {
         if (!frappe.user.has_role('Administração')) {
             frm.disable_save();
         };
-
+        adicionar_botoes(frm);
         frm.toggle_display('botao_criar_atendimento', (frm.doc.atendimento_state === 'Criado'));
         frm.toggle_enable('cliente', frm.doc.atendimento_state === 'Criado');
 
@@ -49,6 +49,7 @@ frappe.ui.form.on('Atendimentos', {
         frm.fields_dict.botao_novo_pedido.$input.on('click', function () { criar_pedido(frm) });
 
     },
+
     update_lista_pedidos: function (frm) {
         frappe.call({
             method: 'frappe.client.get_list',
@@ -57,47 +58,53 @@ frappe.ui.form.on('Atendimentos', {
                 filters: {
                     'atendimento': frm.doc.name
                 },
-                fields: ['name', 'data_criacao', 'data_acerto', 'pedido_state'],
+                fields: ['name', 'data_criacao', 'data_acerto', 'pedido_state', 'pedido_numero'],
                 limit_page_length: 1000
             },
             callback: function (data) {
+                if (data.message && data.message.length > 0) {
+                    data.message.sort((a, b) => {
+                        let numA = parseInt(a.pedido_numero, 10);
+                        let numB = parseInt(b.pedido_numero, 10);
+                        return numB - numA;
+                    });
+                }
+
                 let pedidos_html = `
-                    <table id="pedidos_table" class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th><a href="#" class="sort" data-sort="pedido" data-order="asc">Pedido</a></th>
-                                <th><a href="#" class="sort" data-sort="data_criacao" data-order="asc">Data Criação</a></th>
-                                <th><a href="#" class="sort" data-sort="data_acerto" data-order="asc">Data Acerto</a></th>
-                                <th><a href="#" class="sort" data-sort="estado" data-order="asc">Estado</a></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                `;
+                        <table id="pedidos_table" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th><a href="#" class="sort" data-sort="pedido_numero" data-order="desc">Pedido</a></th>
+                                    <th><a href="#" class="sort" data-sort="data_criacao" data-order="desc">Data Criação</a></th>
+                                    <th><a href="#" class="sort" data-sort="data_acerto" data-order="desc">Data Acerto</a></th>
+                                    <th><a href="#" class="sort" data-sort="pedido_state" data-order="desc">Estado</a></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    `;
 
                 if (data.message && data.message.length > 0) {
                     data.message.forEach(function (pedido) {
                         pedidos_html += `
-                            <tr>
-                                <td><a href="/app/pedidos/${pedido.name}" target="_blank">${pedido.name || 's/d'}</a></td>
-                                <td>${pedido.data_criacao || 's/d'}</td>
-                                <td>${pedido.data_acerto || 's/d'}</td>
-                                <td>${pedido.pedido_state || 's/d'}</td>
-                            </tr>`;
+                                <tr>
+                                    <td><a href="/app/pedidos/${pedido.name}" target="_blank">${pedido.pedido_numero || 's/d'}</a></td>
+                                    <td>${pedido.data_criacao || 's/d'}</td>
+                                    <td>${pedido.data_acerto || 's/d'}</td>
+                                    <td>${pedido.pedido_state || 's/d'}</td>
+                                </tr>`;
                     });
                 } else {
                     pedidos_html += `
-                        <tr>
-                            <td colspan="4">Nenhum pedido encontrado.</td>
-                        </tr>`;
+                            <tr>
+                                <td colspan="4">Nenhum pedido encontrado.</td>
+                            </tr>`;
                 }
 
                 pedidos_html += '</tbody></table>';
 
-                // Define o HTML da tabela no campo
                 frm.set_df_property('lista_pedidos_html', 'options', pedidos_html);
                 frm.refresh_field('lista_pedidos_html');
 
-                // Adiciona funcionalidades de ordenação
                 frappe.after_ajax(function () {
                     const headers = document.querySelectorAll('#pedidos_table th a.sort');
                     headers.forEach(function (header) {
@@ -115,7 +122,9 @@ frappe.ui.form.on('Atendimentos', {
                             const sortedRows = rows.sort((a, b) => {
                                 const aText = a.querySelector(`td:nth-child(${header.parentElement.cellIndex + 1})`).innerText;
                                 const bText = b.querySelector(`td:nth-child(${header.parentElement.cellIndex + 1})`).innerText;
-                                return (newOrder === 'asc' ? 1 : -1) * aText.localeCompare(bText);
+                                const aValue = sortField === 'pedido_numero' ? parseInt(aText, 10) : aText;
+                                const bValue = sortField === 'pedido_numero' ? parseInt(bText, 10) : bText;
+                                return (newOrder === 'asc' ? 1 : -1) * (aValue > bValue ? 1 : -1);
                             });
 
                             tbody.innerHTML = '';
@@ -131,6 +140,23 @@ frappe.ui.form.on('Atendimentos', {
     }
 
 });
+
+function adicionar_botoes(frm) {
+    frm.add_custom_button(__('God Mode'), function () {
+        utils.god_mode(frm);
+    }, 'Administração');
+
+    frm.add_custom_button(__('Desempenho Consignação'), function () {
+        frappe.set_route('query-report', 'Desempenho Consignado Cliente', {
+            'contato': frm.doc.cliente
+        });
+    }, __("Relatórios"));
+    frm.add_custom_button(__('Desempenho Artigos Consignados'), function () {
+        frappe.set_route('query-report', 'Desempenho Artigos Consignados Cliente', {
+            'contato': frm.doc.cliente
+        });
+    }, __("Relatórios"));
+}
 
 abrir_whattsapp = function (telefone) {
     telefone = telefone.replace(/\D/g, '');
@@ -196,7 +222,8 @@ criar_pedido = async function (frm) {
             'cliente': frm.doc.cliente,
             'atendimento': frm.doc.name,
             'pedido_state': 'Pre-Criado',
-            'config_tabela_precos': frm.doc.tabela_precos
+            'config_tabela_precos': frm.doc.tabela_precos,
+            'responsavel': frm.doc.resp_padrao
         };
 
         if (frm.doc.data_visita) {

@@ -7,6 +7,10 @@ app_license = "mit"
 
 app_include_css = "/assets/millapp/css/custom.css"
 
+sounds = [
+    {"name": "erro_longo", "src": "/assets/millapp/sounds/alarme_erros.mp3", "volume": 1}
+]
+
 fixtures = [
     "Report",
     "Print Format",
