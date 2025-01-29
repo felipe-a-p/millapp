@@ -1,0 +1,68 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{cidade} - {estado}",
+ "creation": "2025-01-17 17:20:07.983275",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "cidade",
+  "estado",
+  "municipio_sede",
+  "codigo_ibge"
+ ],
+ "fields": [
+  {
+   "fieldname": "cidade",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Cidade",
+   "not_nullable": 1,
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "municipio_sede",
+   "fieldtype": "Data",
+   "label": "Munic\u00edpio Sede"
+  },
+  {
+   "fieldname": "codigo_ibge",
+   "fieldtype": "Data",
+   "label": "C\u00f3digo IBGE"
+  },
+  {
+   "fieldname": "estado",
+   "fieldtype": "Link",
+   "label": "Estado",
+   "options": "Estados",
+   "reqd": 1,
+   "set_only_once": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-01-17 17:27:56.425241",
+ "modified_by": "Administrator",
+ "module": "Nucleo",
+ "name": "Cidades",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

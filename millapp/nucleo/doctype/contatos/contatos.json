@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:{nome} {sobrenome} - {cidade}",
+ "autoname": "hash",
  "creation": "2024-07-30 11:38:51.829790",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -195,11 +195,11 @@
    "link_fieldname": "cliente"
   }
  ],
- "modified": "2024-12-06 16:06:58.671055",
+ "modified": "2025-01-17 08:35:50.380245",
  "modified_by": "Administrator",
  "module": "Nucleo",
  "name": "Contatos",
- "naming_rule": "Expression",
+ "naming_rule": "Random",
  "owner": "Administrator",
  "permissions": [
   {

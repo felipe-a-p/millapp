@@ -5,23 +5,22 @@ import frappe
 from frappe.model.document import Document
 
 class Contatos(Document):
-    def before_save(self):
+    def on_change(self):
         nome = self.nome
         sobrenome = self.sobrenome
-        cidade = self.cidade
-        if not self.cod_identificador:
-            cod_existentes = frappe.db.sql_list("""
-                SELECT cod_identificador FROM `tabContatos` 
-                WHERE cod_identificador IS NOT NULL
-            """)
-            cod_existentes = [int(cod) for cod in cod_existentes if cod.isdigit()]
-            cod_existentes.sort()
-            menor_disponivel = 1
-            for cod in cod_existentes:
-                if cod == menor_disponivel:
-                    menor_disponivel += 1
-                else:
-                    break
-            self.cod_identificador = str(menor_disponivel)
-        
-        self.name = f"{nome} {sobrenome} - {cidade} - {self.cod_identificador}"
+
+        # Verifica se os campos obrigatórios estão preenchidos
+        if not nome or not sobrenome:
+            frappe.throw("Os campos Nome, Sobrenome e Cidade são obrigatórios para salvar.")
+
+        novo_nome = f"{nome} {sobrenome} - {self.cod_identificador}"
+
+        # Atualiza o nome apenas se ele for diferente do nome atual
+        if novo_nome != self.name:
+            if self.is_new():
+                self.name = novo_nome
+            else:
+                frappe.rename_doc(self.doctype, self.name, novo_nome, force=True)
+
+  
+            frappe.msgprint(f"Documento renomeado de {self.name} para {novo_nome}.")

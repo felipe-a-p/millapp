@@ -40,13 +40,37 @@ def criar_registro(doctype, campos_valores):
 
 @frappe.whitelist()
 def atualizar_campos(doctype, name, campos_json):
-    campos = json.loads(campos_json)
-    doc = frappe.get_doc(doctype, name)
-    
+    import json
+
+    print(f"Atualizando {doctype} {name} com {campos_json}")
+    campos = json.loads(campos_json)  # Parse o JSON enviado
+    doc = frappe.get_doc(doctype, name)  # Obtenha o documento principal
+
     for campo, valor in campos.items():
-        setattr(doc, campo, valor)
-    
-    doc.save()
-    
-    return doc.name
+        if isinstance(valor, list) and campo in [f.fieldname for f in doc.meta.get_table_fields()]:
+            doc.set(campo, [])
+            for item in valor:
+                doc.append(campo, frappe._dict(item))
+        else:
+            setattr(doc, campo, valor)
+
+    try:
+        doc.save()
+        frappe.db.commit()
+        return doc.name
+    except Exception as e:
+        frappe.log_error(message=str(e), title="Erro ao atualizar campos")
+        raise frappe.ValidationError(f"Erro ao atualizar campos: {str(e)}")
+
+@frappe.whitelist()
+def get_filhos(doctype, parent_name):
+    filhos = frappe.get_all(
+        doctype,
+        filters={'parent': parent_name},
+        fields=['name'],
+        ignore_permissions=True 
+    )
+    print(filhos)
+    return filhos
+
 
