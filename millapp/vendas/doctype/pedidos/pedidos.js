@@ -25,7 +25,7 @@ frappe.ui.form.on("Pedidos", {
         document.querySelectorAll('button').forEach(button => {
             button.removeEventListener('click', () => { });
         });
-
+        calcular_valores_entregue_vendido(frm);
         const link = document.createElement('link');
         link.rel = 'stylesheet';
         link.type = 'text/css';
@@ -268,22 +268,22 @@ function calcular_valores_entregue_vendido(frm) {
     });
 
     // Atualizando os valores se necessário
-    if (Math.abs(frm.doc.total_entregue_qtd - total_entregue_qtd_var) > 0.1) {
+    if (Math.abs((frm.doc.total_entregue_qtd ?? 0) - total_entregue_qtd_var) > 0.1) {
         frm.set_value('total_entregue_qtd', total_entregue_qtd_var);
         console.log('Updated total_entregue_qtd', Math.abs(frm.doc.total_entregue_qtd - total_entregue_qtd_var) > 0.1); // Log para atualização
     }
 
-    if (Math.abs(frm.doc.total_entregue_vlr - total_entregue_vlr_var) > 0.1) {
+    if (Math.abs((frm.doc.total_entregue_vlr ?? 0) - total_entregue_vlr_var) > 0.1) {
         frm.set_value('total_entregue_vlr', total_entregue_vlr_var);
         console.log('Updated total_entregue_vlr', total_entregue_vlr_var); // Log para atualização
     }
 
-    if (Math.abs(frm.doc.total_vendido_qtd - total_vendido_qtd_var) > 0.1) {
+    if (Math.abs((frm.doc.total_vendido_qtd ?? 0) - total_vendido_qtd_var) > 0.1) {
         frm.set_value('total_vendido_qtd', total_vendido_qtd_var);
         console.log('Updated total_vendido_qtd', total_vendido_qtd_var);
     }
 
-    if (Math.abs(frm.doc.total_vendido_vlr - total_vendido_vlr_var) > 0.1) {
+    if (Math.abs((frm.doc.total_vendido_vlr ?? 0) - total_vendido_vlr_var) > 0.1) {
         frm.set_value('total_vendido_vlr', total_vendido_vlr_var);
         console.log('Updated total_vendido_vlr', Math.abs(frm.doc.total_vendido_vlr - total_vendido_vlr_var)) // Log para atualização
     }
