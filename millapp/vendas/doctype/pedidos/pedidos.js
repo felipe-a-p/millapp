@@ -25,7 +25,7 @@ frappe.ui.form.on("Pedidos", {
         document.querySelectorAll('button').forEach(button => {
             button.removeEventListener('click', () => { });
         });
-        calcular_valores_entregue_vendido(frm);
+
         const link = document.createElement('link');
         link.rel = 'stylesheet';
         link.type = 'text/css';
@@ -40,7 +40,7 @@ frappe.ui.form.on("Pedidos", {
             await frm.pedido.set_tabela_de_preco_padrao();
         }
 
-        lancador.setup(frm, 'artigos_do_pedido', 'tabela_de_modelos');
+        await lancador.setup(frm, 'artigos_do_pedido', 'tabela_de_modelos');
         // Scripts
         let elementos = [
             { selector: 'button[data-fieldname="botao_criar_pedido"]', event: 'click', handler: () => frm.pedido.criar_pedido() },
@@ -82,6 +82,9 @@ frappe.ui.form.on("Pedidos", {
             });
         });
         observer.observe(document.body, { childList: true, subtree: true });
+
+        calcular_valores_entregue_vendido(frm);
+        verificar_precos(frm);
 
         // TODO FUTURO : Input artigos manual com tamanhos e modelos
         // Layout Por State
@@ -255,40 +258,57 @@ function calcular_valores_entregue_vendido(frm) {
     let total_vendido_qtd_var = 0;
     let total_vendido_vlr_var = 0;
 
-    frm.doc.artigos_do_pedido.forEach(function (row) {
+    frm.doc.artigos_do_pedido.forEach(function (row, index) {
+        row.idx = index + 1;
         if (row.quantidade_entregue && row.preco_etiqueta) {
             total_entregue_qtd_var += row.quantidade_entregue;
             total_entregue_vlr_var += row.valor_total_entregue;
+            if (row.valor_total_entregue == 0) {
+                row.valor_total_entregue = row.quantidade_entregue * row.preco_etiqueta;
+            }
         }
 
         if (row.quantidade_vendida != null && row.quantidade_vendida !== 0) { // Verifique se o valor é diferente de null ou 0
             total_vendido_qtd_var += row.quantidade_vendida;
             total_vendido_vlr_var += row.total_vendido;
+            if ((row.total_vendido == 0) && (row.total_vendido > 0)) {
+                row.total_vendido = row.quantidade_vendida * row.preco_etiqueta;
+            }
         }
     });
+    frm.refresh_field('artigos_do_pedido');
+
 
     // Atualizando os valores se necessário
     if (Math.abs((frm.doc.total_entregue_qtd ?? 0) - total_entregue_qtd_var) > 0.1) {
         frm.set_value('total_entregue_qtd', total_entregue_qtd_var);
-        console.log('Updated total_entregue_qtd', Math.abs(frm.doc.total_entregue_qtd - total_entregue_qtd_var) > 0.1); // Log para atualização
     }
 
     if (Math.abs((frm.doc.total_entregue_vlr ?? 0) - total_entregue_vlr_var) > 0.1) {
         frm.set_value('total_entregue_vlr', total_entregue_vlr_var);
-        console.log('Updated total_entregue_vlr', total_entregue_vlr_var); // Log para atualização
     }
 
     if (Math.abs((frm.doc.total_vendido_qtd ?? 0) - total_vendido_qtd_var) > 0.1) {
         frm.set_value('total_vendido_qtd', total_vendido_qtd_var);
-        console.log('Updated total_vendido_qtd', total_vendido_qtd_var);
     }
 
     if (Math.abs((frm.doc.total_vendido_vlr ?? 0) - total_vendido_vlr_var) > 0.1) {
         frm.set_value('total_vendido_vlr', total_vendido_vlr_var);
-        console.log('Updated total_vendido_vlr', Math.abs(frm.doc.total_vendido_vlr - total_vendido_vlr_var)) // Log para atualização
     }
 }
 
+function verificar_precos(frm) {
+    frm.doc.artigos_do_pedido.forEach(function (row) {
+        if (row.preco_etiqueta == 0) {
+            console.log(row)
+            let dado = frm.dict_precos.find(preco => preco.parent === row.artigo);
+            let preco = dado.preco;
+            row.preco_etiqueta = dado.preco;
+            row.valor_total_entregue = row.preco_etiqueta * row.quantidade_entregue;
+            row.total_vendido = row.preco_etiqueta * row.quantidade_vendida;
+        }
+    })
+}
 
 class Pedido {
     constructor(frm) {
@@ -537,127 +557,142 @@ class Pedido {
 
     encerrar_fechamento() {
         if (confirm('Tem certeza que deseja fechar o pedido?')) {
-            frappe.call({
-                method: 'millapp.api.atualizar_campos',
-                args: {
-                    doctype: 'Atendimentos',
-                    name: this.frm.doc.atendimento,
-                    campos_json: JSON.stringify({
-                        'atendimento_state': 'Iniciado',
-                        'data_visita': null
-                    })
-                },
-                callback: function (response) {
-                    if (response.message) {
-                        console.log('Campos atualizados:', response.message);
-                    }
-                }
+            new Promise((resolve, reject) => {
+                frappe.call({
+                    method: 'millapp.api.atualizar_campos',
+                    args: {
+                        doctype: 'Atendimentos',
+                        name: this.frm.doc.atendimento,
+                        campos_json: JSON.stringify({
+                            'atendimento_state': 'Iniciado',
+                            'data_visita': null
+                        })
+                    },
+                    callback: resolve,
+                    error: reject
+                });
+            }).then(() => {
+                // Prosseguir após atualização
+                this.frm.set_value('pedido_state', 'Faturado');
+                this.frm.set_value('estado_acerto', 'Fechado');
+                return this.frm.save();
+            }).then(() => {
+                return this.gerar_fatura();
+            }).catch(error => {
+                console.error('Erro no fechamento:', error);
+                frappe.msgprint(__('Erro ao fechar o pedido.'));
             });
-            this.frm.set_value('pedido_state', 'Faturado');
-            this.frm.set_value('estado_acerto', 'Fechado');
-            this.frm.save();
-            this.gerar_fatura();
         }
     };
 
     async gerar_fatura() {
-        const config_faturar_negativo = this.frm.doc.config_faturar_negativo;
-        let itens_do_pedido;
-        let artigos_faturados;
+        try {
+            const config_faturar_negativo = this.frm.doc.config_faturar_negativo;
+            let itens_do_pedido;
+            let artigos_faturados;
 
-        if (this.frm.doc.config_faturar_por == "Artigo") {
-            itens_do_pedido = this.frm.doc.artigos_do_pedido.filter(artigo => {
-                return config_faturar_negativo ? artigo.quantidade_vendida !== 0 : artigo.quantidade_vendida > 0;
-            });
-            if (itens_do_pedido.length > 0) {
-                artigos_faturados = itens_do_pedido.map(artigo => ({
-                    'artigo': artigo.artigo,
-                    'quantidade': artigo.quantidade_vendida,
-                    'preço_etiqueta': artigo.preco_etiqueta,
-                    'valor_bruto': artigo.total_vendido
-                }));
-            }
-        } else if (this.frm.doc.config_faturar_por == "Modelo") {
-            itens_do_pedido = this.frm.doc.tabela_de_modelos.filter(artigo => {
-                return config_faturar_negativo ? artigo.quantidade_vendida !== 0 : artigo.quantidade_vendida > 0;
-            });
-            if (itens_do_pedido.length > 0) {
-                artigos_faturados = itens_do_pedido.map(artigo => {
-                    let preco_etiqueta = null;
-                    if (this.frm.dict_precos) {
-                        let preco_obj = Object.values(this.frm.dict_precos).find(preco => preco.parent === artigo.artigo);
-                        if (preco_obj) {
-                            preco_etiqueta = preco_obj.preco;
-                        }
-                    }
-                    let valor_bruto = artigo.quantidade_vendida * preco_etiqueta;
-                    return {
-                        'artigo': artigo.artigo,
-                        'modelo': artigo.modelo,
-                        'quantidade': artigo.quantidade_vendida,
-                        'preço_etiqueta': preco_etiqueta,
-                        'valor_bruto': valor_bruto
-                    };
+            if (this.frm.doc.config_faturar_por == "Artigo") {
+                itens_do_pedido = this.frm.doc.artigos_do_pedido.filter(artigo => {
+                    return config_faturar_negativo ? artigo.quantidade_vendida !== 0 : artigo.quantidade_vendida > 0;
                 });
+                if (itens_do_pedido.length > 0) {
+                    artigos_faturados = itens_do_pedido.map(artigo => ({
+                        'artigo': artigo.artigo,
+                        'quantidade': artigo.quantidade_vendida,
+                        'preço_etiqueta': artigo.preco_etiqueta,
+                        'valor_bruto': artigo.total_vendido
+                    }));
+                }
+            } else if (this.frm.doc.config_faturar_por == "Modelo") {
+                itens_do_pedido = this.frm.doc.tabela_de_modelos.filter(artigo => {
+                    return config_faturar_negativo ? artigo.quantidade_vendida !== 0 : artigo.quantidade_vendida > 0;
+                });
+                if (itens_do_pedido.length > 0) {
+                    artigos_faturados = itens_do_pedido.map(artigo => {
+                        let preco_etiqueta = null;
+                        if (this.frm.dict_precos) {
+                            let preco_obj = Object.values(this.frm.dict_precos).find(preco => preco.parent === artigo.artigo);
+                            if (preco_obj) {
+                                preco_etiqueta = preco_obj.preco;
+                            }
+                        }
+                        let valor_bruto = artigo.quantidade_vendida * preco_etiqueta;
+                        return {
+                            'artigo': artigo.artigo,
+                            'modelo': artigo.modelo,
+                            'quantidade': artigo.quantidade_vendida,
+                            'preço_etiqueta': preco_etiqueta,
+                            'valor_bruto': valor_bruto
+                        };
+                    });
+                }
             }
-        }
-
-        const existe = await frappe.call({
-            method: 'frappe.client.get_list',
-            args: {
-                doctype: "Faturamentos",
-                fields: ["name"],
-                filters: { pedido: this.frm.doc.name },
-                limit_page_length: 1,
+            if (!artigos_faturados || artigos_faturados.length === 0) {
+                frappe.throw(__('Não há itens para faturar.'));
             }
-        }).then(response => {
-            return response.message && response.message.length > 0 ? response.message[0].name : null;
-        }).catch(error => {
-            console.error('Erro ao verificar a existência:', error);
-            return null;
-        });
 
+            // ... (verificação de existência de fatura) ...
+            const existe = await frappe.call({
+                method: 'frappe.client.get_list',
+                args: {
+                    doctype: "Faturamentos",
+                    fields: ["name"],
+                    filters: { pedido: this.frm.doc.name },
+                    limit_page_length: 1,
+                }
+            }).then(response => {
+                return response.message && response.message.length > 0 ? response.message[0].name : null;
+            }).catch(error => {
+                console.error('Erro ao verificar a existência:', error);
+                return null;
+            });
 
-        const campos_faturamento = {
-            'artigos_faturados': artigos_faturados,
-            'faturamento_state': 'Aberto',
-            'valor_liquido_fatura': 0,
-            'desconto_pc': 0,
-            'desconto_moeda': 0,
-        };
-
-        const metodo = existe ? 'millapp.apis.utils.atualizar_campos' : 'millapp.apis.utils.criar_registro';
-        const args = existe
-            ? { doctype: 'Faturamentos', name: existe, campos_json: JSON.stringify(campos_faturamento) }
-            : {
-                doctype: 'Faturamentos',
-                campos_valores: JSON.stringify({
-                    ...campos_faturamento,
-                    'pedido': this.frm.doc.name,
-                    'cliente': this.frm.doc.cliente,
-                    'atendimento': this.frm.doc.name,
-                    'origem': this.frm.doc.tipo_pedido,
-                    'data_criacao': frappe.datetime.now_datetime(),
-                    'data_vencimento': frappe.datetime.add_days(frappe.datetime.now_datetime(), 0),
-                    'responsavel': this.frm.doc.responsavel,
-                })
+            // ... (chamada para criar/atualizar fatura) ...
+            const campos_faturamento = {
+                'artigos_faturados': artigos_faturados,
+                'faturamento_state': 'Aberto',
+                'valor_liquido_fatura': 0,
+                'desconto_pc': 0,
+                'desconto_moeda': 0,
             };
 
-        frappe.call({
-            method: metodo,
-            args: args,
-            callback: function (response) {
-                if (response.message) {
-                    window.location.href = `/app/faturamentos/${response.message.name}`;
-                }
-            },
-            error: function (error) {
-                console.error('Erro na chamada do método:', error);
-                frappe.msgprint(__('Erro ao tentar processar o faturamento.'));
-            }
-        });
-    }
+            const metodo = existe ? 'millapp.apis.utils.atualizar_campos' : 'millapp.apis.utils.criar_registro';
+            const args = existe
+                ? { doctype: 'Faturamentos', name: existe, campos_json: JSON.stringify(campos_faturamento) }
+                : {
+                    doctype: 'Faturamentos',
+                    campos_valores: JSON.stringify({
+                        ...campos_faturamento,
+                        'pedido': this.frm.doc.name,
+                        'cliente': this.frm.doc.cliente,
+                        'atendimento': this.frm.doc.name,
+                        'origem': this.frm.doc.tipo_pedido,
+                        'data_criacao': frappe.datetime.now_datetime(),
+                        'data_vencimento': frappe.datetime.add_days(frappe.datetime.now_datetime(), 0),
+                        'responsavel': this.frm.doc.responsavel,
+                    })
+                };
 
+            frappe.call({
+                method: metodo,
+                args: args,
+                callback: function (response) {
+                    if (response.message) {
+                        console.log(response.message);
+                        window.location.href = `/app/faturamentos/${response.message}`;
+                    }
+                },
+                error: function (error) {
+                    console.error('Erro na chamada do método:', error);
+                    frappe.msgprint(__('Erro ao tentar processar o faturamento.'));
+                }
+            });
+
+        } catch (error) {
+            console.error('Erro ao gerar fatura:', error);
+            frappe.msgprint(__('Erro crítico: ') + error.message);
+        }
+    };
 
     async definir_numero_pedido() {
         await frappe.call({
@@ -694,34 +729,39 @@ class Pedido {
 }
 
 const lancador = {
-    setup: function (frm, tabela_de_artigos, tabela_de_modelos) {
+    setup: async function (frm, tabela_de_artigos, tabela_de_modelos) {
         this.frm = frm;
         this.tabela_de_artigos = tabela_de_artigos;
         this.tabela_de_modelos = tabela_de_modelos;
+
         if (!this.frm.dict_artigos || Object.keys(this.frm.dict_artigos).length === 0 ||
             !this.frm.dict_precos || Object.keys(this.frm.dict_precos).length === 0 ||
             !this.frm.dict_modelos || Object.keys(this.frm.dict_modelos).length === 0) {
-            this.carregar_dicts_de_dados(frm);
-            //this.montar_html_lancamento_manual();
-            this.frm.set_value('artigo_a_editar', '');
+            await this.carregar_dicts_de_dados(frm);
+            await frm.set_value('artigo_a_editar', '');
         }
+
         this.bind_events(frm);
     },
 
     carregar_dicts_de_dados: function (frm) {
-        frappe.call({
-            method: 'millapp.api.get_dados_dos_artigos',
-            args: { tabela_de_precos: frm.doc.config_tabela_precos },
-            callback: function (response) {
-                if (response.message) {
-                    // Atualizar os dicionários com os valores da resposta, se disponíveis
-                    frm.dict_artigos = response.message.artigos || {};
-                    frm.dict_precos = response.message.precos || {};
-                    frm.dict_modelos = response.message.modelos || {};
-                } else {
-                    frappe.msgprint(__('Erro ao carregar dados: ' + response.message.message));
+        return new Promise((resolve, reject) => {
+            frappe.call({
+                method: 'millapp.api.get_dados_dos_artigos',
+                args: { tabela_de_precos: frm.doc.config_tabela_precos },
+                callback: function (response) {
+                    if (response.message) {
+                        // Atualizar os dicionários com os valores da resposta
+                        frm.dict_artigos = response.message.artigos || {};
+                        frm.dict_precos = response.message.precos || {};
+                        frm.dict_modelos = response.message.modelos || {};
+                        resolve();
+                    } else {
+                        frappe.msgprint(__('Erro ao carregar dados: ' + response.message.message));
+                        reject(new Error('Erro ao carregar os dados'));
+                    }
                 }
-            }
+            });
         });
     },
 
